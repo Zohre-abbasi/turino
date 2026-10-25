@@ -1,0 +1,122 @@
+
+.page {
+  width: 100%;
+  max-width: 390px;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.header {
+  width: 100%;
+  min-height: 80px;
+  margin-top: 41px;
+  padding: 0 31px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  
+}
+
+.menuButton,
+.loginButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.main {
+  width: 100%;
+  flex: 1;
+}
+
+.footer {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 20px 31px;
+}
+.footerLinks {
+  border-top:1px dashed #00000040;
+  padding-top:30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  margin-bottom: 24px;
+}
+
+.footerLinks h2 {
+  margin: 0 0 30px;
+  font-weight: 700;
+  color: #282828;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: right;
+}
+.footerLinks ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.footerLinks li {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: right;
+  color: #282828;
+}
+.footerContact {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 20px;
+  padding-top: 30px;
+  
+}
+
+.right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+  min-width: 0;
+}
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  font-weight: 400;
+  font-size: 14px;
+}
+.left img {
+  width: 100px;
+  height: 30px;
+  object-fit: contain;
+}
+.law {
+  border-top: 1px solid #00000040;
+  padding-top: 9px;
+  text-align: center;
+  padding-bottom: 5px;
+}
+.law p {
+  font-weight: 300;
+  font-style: Light;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #000000;
+}
