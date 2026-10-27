@@ -1,13 +1,21 @@
 import styles from "./Layout.module.css";
+import LoginModal from "../modules/LoginModal";
+import { useState } from "react";
 
 function Layout({ children }) {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+
   return (
     <div className={styles.page}>
       <header className={styles.header}>
         <button className={styles.menuButton}>
           <img src="/icons/Group.png" alt="منو" />
         </button>
-        <button className={styles.loginButton}>
+        <button
+          className={styles.loginButton}
+          onClick={() => setIsLoginOpen(true)}
+          aria-label="ورود"
+        >
           <img src="/icons/sign-in.png" alt="ورود" />
         </button>
       </header>
@@ -52,6 +60,7 @@ function Layout({ children }) {
           <p>کلیه حقوق این وب سایت متعلق به تورینو میباشد.</p>
         </div>
       </footer>
+      {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />}
     </div>
   );
 }

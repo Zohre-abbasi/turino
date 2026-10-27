@@ -1,0 +1,135 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(5px);
+
+  /* width: 358px;
+  height: 362px; */
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 358px;
+  height: auto;
+  max-height: 440px;
+  min-height: 362px;
+  padding: 0 24px 24px;
+  border-radius: 20px;
+  background-color: #fff;
+  text-align: center;
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  border: none;
+  background: transparent;
+  font-size: 26px;
+  cursor: pointer;
+  width: 23px;
+  height: 23px;
+}
+
+.modal h2 {
+  /* margin-bottom: 12px; */
+  font-weight: 600;
+  font-size: 22px;
+  margin-top: 59px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #282828;
+}
+
+.modal > p {
+  /* margin-bottom: 20px; */
+  margin-top: 70px;
+  font-weight: 300;
+  font-style: Light;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: right;
+  padding-right: 40px;
+}
+
+.modal input {
+  /* display: block; */
+
+  align-items: center;
+  margin-top: 12px;
+  padding: 0 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  width: 100%;
+  max-width: 278px;
+  height: 54px;
+  border-radius: 6px;
+  border-width: 1px;
+  /* padding: 8px; */
+  gap: 8px;
+  /* margin-right: auto;
+  margin-left: auto; */
+}
+
+.submitButton {
+  width: 100%;
+  max-width: 278px;
+  height: 54px;
+  margin-top: 25px;
+  color: #fff;
+  font: inherit;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  background: #28a745;
+  border-radius: 6px;
+  border-width: 1px;
+  padding: 8px;
+  gap: 8px;
+}
+
+.submitButton:hover {
+  background-color: #218838;
+}
+.errorMessage {
+  /* margin: 3px 0 0;
+  color: #dc2626;
+  font-size: 12px;
+  text-align: center;
+  direction: rtl; */
+
+  margin: 2px 0;
+  width: 100%;
+  /* max-width: 278px; */
+  box-sizing: border-box;
+  color: #dc2626;
+  font-size: 12px;
+  line-height: 1.8;
+  text-align: center;
+  direction: rtl;
+  /* overflow-wrap: anywhere; */
+}
+.serverMessage {
+  margin: 8px auto 0;
+  width: 100%;
+  max-width: 278px;
+  font-size: 13px;
+  line-height: 1.8;
+  text-align: center;
+  direction: rtl;
+  overflow-wrap: anywhere;
+}
