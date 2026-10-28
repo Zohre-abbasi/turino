@@ -14,7 +14,7 @@ const loginSchema = yup.object({
     .matches(/^09\d{9}$/, "شماره موبایل معتبر وارد کنید."),
 });
 
-function LoginModal({ onClose }) {
+function LoginModal({ onClose, onOtpSent }) {
   const [isLoading, setIsLoading] = useState(false);
   const [serverMessage, setServerMessage] = useState("");
 
@@ -32,7 +32,6 @@ function LoginModal({ onClose }) {
   });
 
   const onSubmit = async (data) => {
-    
     setIsLoading(true);
     setServerMessage("");
 
@@ -40,12 +39,9 @@ function LoginModal({ onClose }) {
       const response = await api.post("/auth/send-otp", {
         mobile: data.mobile,
       });
-      
-      setServerMessage(response.data.message);
 
-      console.log("پاسخ سرور:", response.data);
+      onOtpSent(data.mobile, response.data.code);
     } catch (error) {
-      
       setServerMessage(
         error.response?.data?.message || "ارسال کد تأیید با مشکل مواجه شد.",
       );

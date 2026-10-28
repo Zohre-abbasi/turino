@@ -1,4 +1,3 @@
-
 import Banner from "../modules/Banner";
 import TourSearch from "../modules/TourSearch";
 

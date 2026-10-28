@@ -1,22 +1,70 @@
 import styles from "./Layout.module.css";
 import LoginModal from "../modules/LoginModal";
+import OtpModal from "../modules/OtpModal";
 import { useState } from "react";
 
 function Layout({ children }) {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isOtpOpen, setIsOtpOpen] = useState(false);
+  const [mobile, setMobile] = useState("");
+  const [testCode, setTestCode] = useState("");
+  const [user, setUser] = useState(null);
+
+  const handleOtpSent = (mobileNumber, code) => {
+    setMobile(mobileNumber);
+    setTestCode(code || "");
+    setIsLoginOpen(false);
+    setIsOtpOpen(true);
+  };
+
+  const handleLoginSuccess = (data) => {
+    if (!data.accessToken || !data.refreshToken || !data.user) {
+      console.error("پاسخ احراز هویت کامل نیست.");
+      return;
+    }
+
+    localStorage.setItem("accessToken", data.accessToken);
+    localStorage.setItem("refreshToken", data.refreshToken);
+
+    setUser(data.user);
+    setMobile(data.user.mobile);
+    setTestCode("");
+    setIsOtpOpen(false);
+  };
 
   return (
     <div className={styles.page}>
+      {testCode && (
+        <p className={styles.testCode}>
+          کد آزمایشی: <span dir="ltr">{testCode}</span>
+        </p>
+      )}
       <header className={styles.header}>
         <button className={styles.menuButton}>
           <img src="/icons/Group.png" alt="منو" />
         </button>
         <button
           className={styles.loginButton}
-          onClick={() => setIsLoginOpen(true)}
-          aria-label="ورود"
+          onClick={() => {
+            if (!user && !isOtpOpen) {
+              setIsLoginOpen(true);
+            }
+          }}
+          aria-label={
+            user
+              ? `شماره موبایل ${user.mobile}`
+              : isOtpOpen
+                ? "تأیید کد"
+                : "ورود"
+          }
         >
-          <img src="/icons/sign-in.png" alt="ورود" />
+          {user ? (
+            <span dir="ltr">{user.mobile}</span>
+          ) : isOtpOpen ? (
+            <img src="/icons/sign.png" />
+          ) : (
+            <img src="/icons/sign-in.png" alt="ورود" />
+          )}
         </button>
       </header>
       <main className={styles.main}>{children}</main>
@@ -60,7 +108,24 @@ function Layout({ children }) {
           <p>کلیه حقوق این وب سایت متعلق به تورینو میباشد.</p>
         </div>
       </footer>
-      {isLoginOpen && <LoginModal onClose={() => setIsLoginOpen(false)} />}
+      {isLoginOpen && (
+        <LoginModal
+          onClose={() => setIsLoginOpen(false)}
+          onOtpSent={handleOtpSent}
+        />
+      )}
+      {isOtpOpen && (
+        <OtpModal
+          mobile={mobile}
+          testCode={testCode}
+          onBack={() => {
+            setIsOtpOpen(false);
+            setIsLoginOpen(true);
+          }}
+          onClose={() => setIsOtpOpen(false)}
+          onLoginSuccess={handleLoginSuccess}
+        />
+      )}
     </div>
   );
 }
