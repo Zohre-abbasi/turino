@@ -2,9 +2,11 @@ import styles from "./Layout.module.css";
 import LoginModal from "../modules/LoginModal";
 import OtpModal from "../modules/OtpModal";
 import { useState } from "react";
+import Link from "next/link";
 
 function Layout({ children }) {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isOtpOpen, setIsOtpOpen] = useState(false);
   const [mobile, setMobile] = useState("");
   const [testCode, setTestCode] = useState("");
@@ -40,9 +42,15 @@ function Layout({ children }) {
         </p>
       )}
       <header className={styles.header}>
-        <button className={styles.menuButton}>
-          <img src="/icons/Group.png" alt="منو" />
+        <button
+          className={styles.menuButton}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label={isMenuOpen ? "بستن منو" : "باز کردن منو"}
+          aria-expanded={isMenuOpen}
+        >
+          {!isMenuOpen && <img src="/icons/Group.png" alt="" />}
         </button>
+
         <button
           className={styles.loginButton}
           onClick={() => {
@@ -67,6 +75,55 @@ function Layout({ children }) {
           )}
         </button>
       </header>
+      {isMenuOpen && (
+        <div
+          className={styles.menuOverlay}
+          onClick={() => setIsMenuOpen(false)}
+        />
+      )}
+      {isMenuOpen && (
+        <nav className={styles.menuPanel} aria-label="منوی اصلی">
+          <button
+            type="button"
+            className={styles.closeMenuButton}
+            onClick={() => setIsMenuOpen(false)}
+            aria-label="بستن منو"
+          >
+            ×
+          </button>
+
+          <ul className={styles.menuList}>
+            <li>
+              <img src="/icons/home.png" />
+              <Link
+                href="/"
+                className={styles.activeLink}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                صفحه اصلی
+              </Link>
+            </li>
+            <li>
+              <img src="/icons/airplane.png" />
+              <Link href="/" onClick={() => setIsMenuOpen(false)}>
+                خدمات گردشگری
+              </Link>
+            </li>
+            <li>
+              <img src="/icons/volume.png" />
+              <Link href="/" onClick={() => setIsMenuOpen(false)}>
+                درباره ما
+              </Link>
+            </li>
+            <li>
+              <img src="/icons/call.png" />
+              <Link href="/" onClick={() => setIsMenuOpen(false)}>
+                تماس با ما
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      )}
       <main className={styles.main}>{children}</main>
       <footer className={styles.footer}>
         <div className={styles.footerLinks}>
