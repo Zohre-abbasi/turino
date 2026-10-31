@@ -44,7 +44,7 @@
   width: 18px;
   height: 28px;
   object-fit: contain;
-  /* flex-shrink: 0; */
+  
 }
 
 .field input {
@@ -89,7 +89,6 @@
   width: auto;
   max-width: 60px;
   min-width: 0;
-
   padding: 0;
   border: none;
   outline: none;
@@ -105,13 +104,114 @@
   padding: 8px;
   margin-top: 20px;
   gap: 8px;
-
   font-weight: 400;
-
   font-size: 20px;
   color: #ffffff;
-
   line-height: 100%;
   letter-spacing: 0%;
   text-align: center;
+}
+@media (min-width: 768px) {
+  .tourSearch {
+    padding: 0 31px;
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .tourSearch h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
+  .form {
+    width: 874px;
+    max-width: 100%;
+    height: 60px;
+    margin: 0 auto;
+    /* padding: 8px 12px; */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    border: 1px solid #00000026;
+    background-color: #ffffff;
+    direction: rtl;
+    border-width: 1px;
+    border-radius: 20px;
+    padding:15px 18px 15px 10px;
+
+  }
+
+  .routeFields {
+    display: contents;
+  }
+
+  .field {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0 12px;
+    border: none;
+    border-radius: 0;
+    justify-content: flex-start;
+  }
+
+  .fieldDate {
+    flex: 0.9;
+    min-width: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0 12px;
+    border: none;
+    border-radius: 0;
+    justify-content: space-between;
+  }
+
+  .dateInput {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .searchButton {
+    width: 160px;
+    height: 45px;
+    margin: 0;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 18px;
+  }
+
+  .field input,
+  .fieldDate input {
+    max-width: none;
+  }
+  .field::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 45px;
+    background-color: #dcdcdc;
+  }
+}
+@media (min-width: 390px) and (max-width: 767px) {
+  .tourSearch h2 {
+    text-align: center;
+  }
+
+  .routeFields {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .field {
+    width: 160px;
+    flex-shrink: 1;
+    box-sizing: border-box;
+  }
 }
