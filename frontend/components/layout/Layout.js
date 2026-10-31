@@ -42,7 +42,6 @@ function Layout({ children }) {
         </p>
       )}
       <header className={styles.header}>
-        {/* دکمه منوی موبایل */}
         <button
           className={styles.menuButton}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -51,13 +50,9 @@ function Layout({ children }) {
         >
           {!isMenuOpen && <img src="/icons/Group.png" alt="" />}
         </button>
-
-        {/* لوگوی تورینو در دسکتاپ */}
         <Link href="/" className={styles.desktopLogo}>
           <img src="/icons/Torino.png" alt="تورینو" />
         </Link>
-
-        {/* لینک‌های منوی دسکتاپ */}
         <nav className={styles.desktopNav} aria-label="منوی اصلی">
           <Link href="/" className={styles.activeLink}>
             صفحه اصلی
@@ -66,8 +61,6 @@ function Layout({ children }) {
           <Link href="/">درباره ما</Link>
           <Link href="/">تماس با ما</Link>
         </nav>
-
-        {/* دکمه ورود در موبایل و دسکتاپ */}
         <button
           className={styles.loginButton}
           onClick={() => {
@@ -144,41 +137,47 @@ function Layout({ children }) {
       )}
       <main className={styles.main}>{children}</main>
       <footer className={styles.footer}>
-        <div className={styles.footerLinks}>
-          <div>
-            <h2>تورینو</h2>
-            <ul>
-              <li>درباره ما</li>
-              <li>تماس با ما</li>
-              <li>چرا تورینو</li>
-              <li>بیمه مسافرتی</li>
-            </ul>
+        <div className={styles.footerContent}>
+          <div className={styles.footerLinks}>
+            <div>
+              <h2>تورینو</h2>
+              <ul>
+                <li>درباره ما</li>
+                <li>تماس با ما</li>
+                <li>چرا تورینو</li>
+                <li>بیمه مسافرتی</li>
+              </ul>
+            </div>
+
+            <div>
+              <h2>خدمات مشتریان</h2>
+              <ul>
+                <li>پشتیبانی آنلاین</li>
+                <li>راهنمای خرید</li>
+                <li>راهنمای استرداد</li>
+                <li>پرسش و پاسخ</li>
+              </ul>
+            </div>
           </div>
-          <div>
-            <h2>خدمات مشتریان</h2>
-            <ul>
-              <li>پشتیبانی آنلاین</li>
-              <li>راهنمای خرید</li>
-              <li>راهنمای استرداد</li>
-              <li>پرسش و پاسخ</li>
-            </ul>
+
+          <div className={styles.footerContact}>
+            <div className={styles.right}>
+              <img src="/icons/ecunion.png" alt="نماد اعتماد الکترونیکی" />
+              <img src="/icons/samandehi.png" alt="نماد ساماندهی" />
+              <img src="/icons/aira.png" alt="مجوز گردشگری" />
+              <img src="/icons/state-airline.png" alt="مجوز هواپیمایی" />
+              <img src="/icons/passenger.png" alt="مجوز مسافرتی" />
+            </div>
+
+            <div className={styles.left}>
+              <img src="/icons/Torino.png" alt="لوگوی تورینو" />
+              <p>
+                تلفن پشتیبانی: <span dir="ltr">۰۲۱-۸۵۷۴</span>
+              </p>
+            </div>
           </div>
         </div>
-        <div className={styles.footerContact}>
-          <div className={styles.right}>
-            <img src="/icons/ecunion.png" alt="نماد اعتماد الکترونیکی" />
-            <img src="/icons/samandehi.png" alt="نمادساماندهی" />
-            <img src="/icons/aira.png" alt="مجوز گردشگری" />
-            <img src="/icons/state-airline.png" alt="مجوز هواپیمایی" />
-            <img src="/icons/passenger.png" alt="مجوز مسافرتی" />
-          </div>
-          <div className={styles.left}>
-            <img src="/icons/Torino.png" alt="لوگوی تورینو" />
-            <p>
-              تلفن پشتیبانی: <span dir="ltr">۰۲۱-۸۵۷۴</span>
-            </p>
-          </div>
-        </div>
+
         <div className={styles.law}>
           <p>کلیه حقوق این وب سایت متعلق به تورینو میباشد.</p>
         </div>
