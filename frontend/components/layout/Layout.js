@@ -42,6 +42,7 @@ function Layout({ children }) {
         </p>
       )}
       <header className={styles.header}>
+        {/* دکمه منوی موبایل */}
         <button
           className={styles.menuButton}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -51,6 +52,22 @@ function Layout({ children }) {
           {!isMenuOpen && <img src="/icons/Group.png" alt="" />}
         </button>
 
+        {/* لوگوی تورینو در دسکتاپ */}
+        <Link href="/" className={styles.desktopLogo}>
+          <img src="/icons/Torino.png" alt="تورینو" />
+        </Link>
+
+        {/* لینک‌های منوی دسکتاپ */}
+        <nav className={styles.desktopNav} aria-label="منوی اصلی">
+          <Link href="/" className={styles.activeLink}>
+            صفحه اصلی
+          </Link>
+          <Link href="/">خدمات گردشگری</Link>
+          <Link href="/">درباره ما</Link>
+          <Link href="/">تماس با ما</Link>
+        </nav>
+
+        {/* دکمه ورود در موبایل و دسکتاپ */}
         <button
           className={styles.loginButton}
           onClick={() => {
@@ -58,20 +75,21 @@ function Layout({ children }) {
               setIsLoginOpen(true);
             }
           }}
-          aria-label={
-            user
-              ? `شماره موبایل ${user.mobile}`
-              : isOtpOpen
-                ? "تأیید کد"
-                : "ورود"
-          }
+          aria-label={user ? `شماره موبایل ${user.mobile}` : "ورود یا ثبت‌نام"}
         >
           {user ? (
             <span dir="ltr">{user.mobile}</span>
-          ) : isOtpOpen ? (
-            <img src="/icons/sign.png" />
           ) : (
-            <img src="/icons/sign-in.png" alt="ورود" />
+            <>
+              <span className={styles.mobileLogin}>
+                <img src="/icons/sign-in.png" alt="ورود" />
+              </span>
+
+              <span className={styles.desktopLogin}>
+                <img src="/icons/profile.png" alt="پروفایل" />
+                ورود | ثبت‌نام
+              </span>
+            </>
           )}
         </button>
       </header>

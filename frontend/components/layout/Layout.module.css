@@ -1,6 +1,6 @@
 .page {
   width: 100%;
-  max-width: 390px;
+  max-width: 1100px;
   min-height: 100vh;
   margin: 0 auto;
   display: flex;
@@ -11,7 +11,7 @@
 .header {
   width: 100%;
   min-height: 80px;
-  margin-top: 41px;
+  margin-top: 30px;
   padding: 0 31px;
   display: flex;
   align-items: center;
@@ -53,7 +53,6 @@
   margin: 0 0 30px;
   font-weight: 700;
   color: #282828;
-  font-weight: 600;
   font-size: 22px;
   line-height: 100%;
   letter-spacing: 0%;
@@ -112,7 +111,7 @@
 .law p {
   font-weight: 300;
   font-style: Light;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 100%;
   letter-spacing: 0%;
   color: #000000;
@@ -133,19 +132,6 @@
   white-space: nowrap;
   box-shadow: 0 2px 8px #00000015;
 }
-/* .menuPanel {
-  position: absolute;
-  top: 121px;
-  right: max(0px, calc((100vw - 390px) / 2));
-  z-index: 10;
-  width: min(195px, 50vw);
-  padding: 20px;
-  box-sizing: border-box;
-  background-color: #ffffff;
-  border: 1px solid #eeeeee;
-  box-shadow: 0 4px 12px #00000012;
-  direction: rtl;
-} */
 
 .menuPanel {
   position: fixed;
@@ -219,4 +205,95 @@
   background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(3px);
+}
+.desktopLogo,
+.desktopNav,
+.desktopLogin {
+  display: none;
+}
+
+.mobileLogin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* @media (min-width: 390px) and (max-width: 767px) {
+  .header {
+    padding: 0 60px;
+    justify-content:space-between;
+    gap: 20px;
+  }
+
+  .menuButton,
+  .loginButton {
+    flex-shrink: 0;
+  }
+} */
+@media (min-width: 768px) {
+  .header {
+    min-height: 100px;
+    margin-top: 30px;
+    padding: 0 31px;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .menuButton {
+    display: none;
+  }
+
+  .desktopLogo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .desktopLogo img {
+    width: 146px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .desktopNav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex: 1;
+  }
+
+  .desktopNav a {
+    color: #282828;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .desktopLogin {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+
+  .desktopLogin img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  .mobileLogin {
+    display: none;
+  }
+
+  .loginButton {
+    min-height: 48px;
+    padding: 0 18px;
+    border: 2px solid #28a745;
+    border-radius: 8px;
+    color: #28a745;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
 }
