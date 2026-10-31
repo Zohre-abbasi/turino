@@ -69,7 +69,7 @@ function OtpModal({ mobile, testCode, onBack, onClose, onLoginSuccess }) {
           onClick={onBack}
           aria-label="بازگشت"
         >
-          <img src="/icons/back.png" alt="" />
+          <img src="/icons/arrow-left.png" alt="back" />
         </button>
 
         <h2>کد تأیید را وارد کنید.</h2>
