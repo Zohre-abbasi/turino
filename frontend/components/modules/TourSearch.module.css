@@ -41,13 +41,13 @@
   gap: 5px;
   width: 100%;
   height: 47px;
-  padding: 0 22px;
+  padding: 0 10px;
   min-width: 0;
   border: 1px solid #dcdcdc;
   border-radius: 12px;
   background-color: #fff;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   color: #00000080;
 }
 
@@ -220,6 +220,60 @@
   text-align: center;
 }
 
+/* Active Filters - Mobile */
+
+.activeFilters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  direction: rtl;
+}
+
+.activeFiltersTitle {
+  width: 100%;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 600;
+  color: #595959;
+}
+
+.filterTags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filterTag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  background: #fff;
+  color: #595959;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.filterTag span:first-child {
+  color:#d32f2f
+}
+.clearFilters {
+  padding: 7px 4px;
+  border: none;
+  background: transparent;
+  color: #d32f2f;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
 /* Desktop */
 
 @media (min-width: 768px) {
@@ -250,16 +304,7 @@
   }
 
   .routeFields {
-    display: flex;
     flex: 1;
-    min-width: 0;
-    gap: 12px;
-  }
-
-  .originWrapper,
-  .destinationWrapper {
-    position: relative;
-    flex: 1 1 0;
     min-width: 0;
   }
   .originDropdown {
@@ -338,6 +383,19 @@
     width: 1px;
     height: 45px;
     background-color: #dcdcdc;
+  }
+  .activeFilters {
+    width: 874px;
+    max-width: 100%;
+    margin: 16px auto 0;
+  }
+
+  .activeFiltersTitle {
+    text-align: right;
+  }
+
+  .filterTags {
+    justify-content: flex-start;
   }
 }
 

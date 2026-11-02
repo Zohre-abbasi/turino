@@ -2,66 +2,48 @@ import { useState } from "react";
 
 import dynamic from "next/dynamic";
 import { CalendarProvider } from "zaman";
-import { getTours } from "../../services/tourService";
+
+import useTourSearch from "../../hooks/useTourSearch";
+import { formatPersianDate, parseApiDate } from "../../utils/dateUtils";
+
 import styles from "./TourSearch.module.css";
 
 const Calendar = dynamic(() => import("zaman").then((mod) => mod.Calendar), {
   ssr: false,
 });
 
-const formatPersianDate = (date) => {
-  if (!date) return "";
-
-  return new Intl.DateTimeFormat("fa-IR", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    calendar: "persian",
-  }).format(new Date(date));
-};
-
-const formatApiDate = (date) => {
-  if (!date) return "";
-
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-
-  return `${year}-${month}-${day}`;
-};
-
 function TourSearch() {
-  const [origin, setOrigin] = useState(null);
+  // وضعیت‌های مربوط به نمایش رابط کاربری
   const [showOrigins, setShowOrigins] = useState(false);
-  const [destination, setDestination] = useState("");
   const [showDestinations, setShowDestinations] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
 
-  const origins = [
-    { id: "1", name: "تهران" },
-    { id: "2", name: "سنندج" },
-    { id: "4", name: "اصفهان" },
-  ];
-
-  const handleSearch = async (e) => {
-    e.preventDefault();
-
-    const filters = {
-      originId: origin?.id,
-      startDate: formatApiDate(startDate),
-      endDate: formatApiDate(endDate),
-    };
-
-    try {
-      const tours = await getTours(filters);
-
-      console.log("Tours:", tours);
-    } catch (error) {
-      console.error("Error fetching tours:", error);
-    }
-  };
+  // دریافت اطلاعات و توابع مربوط به جست‌وجوی تور
+  const {
+    origin,
+    setOrigin,
+    destination,
+    setDestination,
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+    searchFilters,
+    allTours,
+    isLoadingAllTours,
+    filteredTours,
+    isLoading,
+    isError,
+    error,
+    origins,
+    destinations,
+    appliedOrigin,
+    appliedDestination,
+    hasActiveFilters,
+    handleSearch,
+    handleRemoveFilter,
+    handleRemoveAllFilters,
+  } = useTourSearch();
 
   return (
     <div className={styles.tourSearch}>
@@ -89,7 +71,6 @@ function TourSearch() {
             {showOrigins && (
               <div className={styles.originDropdown}>
                 <div className={styles.dropdownTitle}>پرتردد</div>
-
                 {origins.map((item) => (
                   <div
                     key={item.id}
@@ -116,7 +97,7 @@ function TourSearch() {
                 type="text"
                 placeholder="مقصد"
                 name="destination"
-                value={destination}
+                value={destination?.name || ""}
                 onClick={() => setShowDestinations(!showDestinations)}
                 readOnly
               />
@@ -125,8 +106,19 @@ function TourSearch() {
             {showDestinations && (
               <div className={styles.destinationDropdown}>
                 <div className={styles.dropdownTitle}>پرتردد</div>
-
-                {/* گزینه‌های مقصد را بعداً از API دریافت می‌کنیم */}
+                {destinations.map((item) => (
+                  <div
+                    key={item.id}
+                    className={styles.destinationOption}
+                    onClick={() => {
+                      setDestination(item);
+                      setShowDestinations(false);
+                    }}
+                  >
+                    <img src="/icons/global.png" alt="" />
+                    <span>{item.name}</span>
+                  </div>
+                ))}
               </div>
             )}
           </div>
@@ -173,6 +165,59 @@ function TourSearch() {
           جستجو
         </button>
       </form>
+      {hasActiveFilters && (
+        <div className={styles.activeFilters}>
+          <div className={styles.activeFiltersTitle}>فیلترهای اعمال‌شده:</div>
+
+          <div className={styles.filterTags}>
+            {appliedOrigin && (
+              <button
+                type="button"
+                className={styles.filterTag}
+                onClick={() => handleRemoveFilter("originId")}
+              >
+                مبدأ: {appliedOrigin.name}
+                <span>×</span>
+              </button>
+            )}
+
+            {appliedDestination && (
+              <button
+                type="button"
+                className={styles.filterTag}
+                onClick={() => handleRemoveFilter("destinationId")}
+              >
+                مقصد: {appliedDestination.name}
+                <span>×</span>
+              </button>
+            )}
+
+            {(searchFilters.startDate || searchFilters.endDate) && (
+              <button
+                type="button"
+                className={styles.filterTag}
+                onClick={() => handleRemoveFilter("date")}
+              >
+                تاریخ:
+                {searchFilters.startDate &&
+                  formatPersianDate(parseApiDate(searchFilters.startDate))}
+                {" تا "}
+                {searchFilters.endDate &&
+                  formatPersianDate(parseApiDate(searchFilters.endDate))}
+                <span>×</span>
+              </button>
+            )}
+          </div>
+
+          <button
+            type="button"
+            className={styles.clearFilters}
+            onClick={() => handleRemoveAllFilters()}
+          >
+            حذف همه فیلترها
+          </button>
+        </div>
+      )}
     </div>
   );
 }
