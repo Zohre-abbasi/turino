@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import dynamic from "next/dynamic";
 import { CalendarProvider } from "zaman";
+import { getTours } from "../../services/tourService";
 import styles from "./TourSearch.module.css";
 
 const Calendar = dynamic(() => import("zaman").then((mod) => mod.Calendar), {
@@ -19,6 +20,16 @@ const formatPersianDate = (date) => {
   }).format(new Date(date));
 };
 
+const formatApiDate = (date) => {
+  if (!date) return "";
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
+
 function TourSearch() {
   const [origin, setOrigin] = useState(null);
   const [showOrigins, setShowOrigins] = useState(false);
@@ -34,13 +45,31 @@ function TourSearch() {
     { id: "4", name: "اصفهان" },
   ];
 
+  const handleSearch = async (e) => {
+    e.preventDefault();
+
+    const filters = {
+      originId: origin?.id,
+      startDate: formatApiDate(startDate),
+      endDate: formatApiDate(endDate),
+    };
+
+    try {
+      const tours = await getTours(filters);
+
+      console.log("Tours:", tours);
+    } catch (error) {
+      console.error("Error fetching tours:", error);
+    }
+  };
+
   return (
     <div className={styles.tourSearch}>
       <h2>
         <span>تورینو</span> برگزار کننده بهترین تور های داخلی و خارجی
       </h2>
 
-      <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+      <form className={styles.form} onSubmit={handleSearch}>
         <div className={styles.routeFields}>
           {/* مبدأ */}
           <div className={styles.originWrapper}>
