@@ -1,11 +1,32 @@
 import { useState } from "react";
+
+import dynamic from "next/dynamic";
+import { CalendarProvider } from "zaman";
 import styles from "./TourSearch.module.css";
+
+const Calendar = dynamic(() => import("zaman").then((mod) => mod.Calendar), {
+  ssr: false,
+});
+
+const formatPersianDate = (date) => {
+  if (!date) return "";
+
+  return new Intl.DateTimeFormat("fa-IR", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    calendar: "persian",
+  }).format(new Date(date));
+};
 
 function TourSearch() {
   const [origin, setOrigin] = useState(null);
   const [showOrigins, setShowOrigins] = useState(false);
   const [destination, setDestination] = useState("");
   const [showDestinations, setShowDestinations] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   const origins = [
     { id: "1", name: "تهران" },
@@ -19,10 +40,7 @@ function TourSearch() {
         <span>تورینو</span> برگزار کننده بهترین تور های داخلی و خارجی
       </h2>
 
-      <form
-        className={styles.form}
-        onSubmit={(e) => e.preventDefault()}
-      >
+      <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
         <div className={styles.routeFields}>
           {/* مبدأ */}
           <div className={styles.originWrapper}>
@@ -84,27 +102,42 @@ function TourSearch() {
             )}
           </div>
         </div>
-
-        <div className={styles.fieldDate}>
-          <img src="/icons/calendar.png" alt="تقویم" />
-
-          <div className={styles.dateInputs}>
-            <input
-              type="text"
-              placeholder="تاریخ شروع"
-              name="startDate"
-              readOnly
-            />
-
-            <span className={styles.dateSeparator}>تا</span>
-
-            <input
-              type="text"
-              placeholder="تاریخ پایان"
-              name="endDate"
-              readOnly
-            />
+        <div className={styles.dateWrapper}>
+          <div
+            className={styles.fieldDate}
+            onClick={() => setShowCalendar((prev) => !prev)}
+          >
+            <img src="/icons/calendar.png" alt="تقویم" />
+            <div className={styles.dateInputs}>
+              <input
+                type="text"
+                placeholder="تاریخ"
+                name="date"
+                value={
+                  startDate && endDate
+                    ? `${formatPersianDate(startDate)} تا ${formatPersianDate(endDate)}`
+                    : ""
+                }
+                readOnly
+              />
+            </div>
           </div>
+          {showCalendar && (
+            <CalendarProvider locale="fa" direction="rtl">
+              <Calendar
+                className={styles.calendarPopup}
+                range
+                onChange={(dates) => {
+                  setStartDate(dates.from);
+                  setEndDate(dates.to);
+
+                  if (dates.from && dates.to) {
+                    setShowCalendar(false);
+                  }
+                }}
+              />
+            </CalendarProvider>
+          )}
         </div>
 
         <button className={styles.searchButton} type="submit">
