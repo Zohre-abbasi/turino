@@ -3,8 +3,9 @@ import TourSearch from "../modules/TourSearch";
 import TourList from "../modules/TourList";
 import useTourSearch from "../../hooks/useTourSearch";
 
-function HomePage() {
-  const searchProps = useTourSearch();
+function HomePage({ initialTours }) {
+  const searchProps = useTourSearch(initialTours);
+
   const { filteredTours, isLoading, isError, error } = searchProps;
 
   return (
