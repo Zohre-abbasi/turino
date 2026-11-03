@@ -6,6 +6,7 @@ import { CalendarProvider } from "zaman";
 import { formatPersianDate, parseApiDate } from "../../utils/dateUtils";
 
 import styles from "./TourSearch.module.css";
+import { getPersianCityName } from "../../utils/tourUtils";
 
 const Calendar = dynamic(() => import("zaman").then((mod) => mod.Calendar), {
   ssr: false,
@@ -54,7 +55,7 @@ function TourSearch({ ...searchProps }) {
                 type="text"
                 placeholder="مبدا"
                 name="origin"
-                value={origin?.name || ""}
+                value={getPersianCityName(origin?.name)}
                 onClick={() => setShowOrigins(!showOrigins)}
                 readOnly
               />
@@ -73,7 +74,7 @@ function TourSearch({ ...searchProps }) {
                     }}
                   >
                     <img src="/icons/location.png" alt="" />
-                    <span>{item.name}</span>
+                    <span>{getPersianCityName(item.name)}</span>
                   </div>
                 ))}
               </div>
@@ -89,7 +90,7 @@ function TourSearch({ ...searchProps }) {
                 type="text"
                 placeholder="مقصد"
                 name="destination"
-                value={destination?.name || ""}
+                value={getPersianCityName(destination?.name)}
                 onClick={() => setShowDestinations(!showDestinations)}
                 readOnly
               />
@@ -108,7 +109,7 @@ function TourSearch({ ...searchProps }) {
                     }}
                   >
                     <img src="/icons/global.png" alt="" />
-                    <span>{item.name}</span>
+                    <span>{getPersianCityName(item.name)}</span>
                   </div>
                 ))}
               </div>
@@ -168,7 +169,7 @@ function TourSearch({ ...searchProps }) {
                 className={styles.filterTag}
                 onClick={() => handleRemoveFilter("originId")}
               >
-                مبدأ: {appliedOrigin.name}
+                مبدأ: {getPersianCityName(appliedOrigin.name)}
                 <span>×</span>
               </button>
             )}
@@ -179,7 +180,7 @@ function TourSearch({ ...searchProps }) {
                 className={styles.filterTag}
                 onClick={() => handleRemoveFilter("destinationId")}
               >
-                مقصد: {appliedDestination.name}
+                مقصد: {getPersianCityName(appliedDestination.name)}
                 <span>×</span>
               </button>
             )}

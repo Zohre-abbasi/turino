@@ -1,13 +1,5 @@
 import styles from "./TourCard.module.css";
-
-// تبدیل مقدار وسیله نقلیه به متن فارسی
-const vehicleNames = {
-  bus: "اتوبوس",
-  ship: "کشتی",
-  train: "قطار",
-  airplane: "هواپیما",
-  SUV: " شاسی‌بلند",
-};
+import { getPersianVehicleName } from "../../utils/tourUtils";
 
 // استخراج ماه فارسی از تاریخ شروع تور
 const getPersianMonth = (date) => {
@@ -61,7 +53,7 @@ function TourCard({ tour }) {
 
   const month = getPersianMonth(startDate);
   const duration = getTourDuration(startDate, endDate);
-  const vehicle = vehicleNames[fleetVehicle] || fleetVehicle;
+  const vehicle = getPersianVehicleName(fleetVehicle);
   const hotelStars = getHotelStars(options);
 
   const priceInPersian = new Intl.NumberFormat("fa-IR").format(price);
