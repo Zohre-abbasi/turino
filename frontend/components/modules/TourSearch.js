@@ -3,7 +3,6 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import { CalendarProvider } from "zaman";
 
-import useTourSearch from "../../hooks/useTourSearch";
 import { formatPersianDate, parseApiDate } from "../../utils/dateUtils";
 
 import styles from "./TourSearch.module.css";
@@ -12,13 +11,7 @@ const Calendar = dynamic(() => import("zaman").then((mod) => mod.Calendar), {
   ssr: false,
 });
 
-function TourSearch() {
-  // وضعیت‌های مربوط به نمایش رابط کاربری
-  const [showOrigins, setShowOrigins] = useState(false);
-  const [showDestinations, setShowDestinations] = useState(false);
-  const [showCalendar, setShowCalendar] = useState(false);
-
-  // دریافت اطلاعات و توابع مربوط به جست‌وجوی تور
+function TourSearch({ ...searchProps }) {
   const {
     origin,
     setOrigin,
@@ -29,12 +22,6 @@ function TourSearch() {
     endDate,
     setEndDate,
     searchFilters,
-    allTours,
-    isLoadingAllTours,
-    filteredTours,
-    isLoading,
-    isError,
-    error,
     origins,
     destinations,
     appliedOrigin,
@@ -43,7 +30,12 @@ function TourSearch() {
     handleSearch,
     handleRemoveFilter,
     handleRemoveAllFilters,
-  } = useTourSearch();
+  } = searchProps;
+
+  // وضعیت‌های مربوط به نمایش رابط کاربری
+  const [showOrigins, setShowOrigins] = useState(false);
+  const [showDestinations, setShowDestinations] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
 
   return (
     <div className={styles.tourSearch}>
