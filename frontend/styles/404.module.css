@@ -1,43 +1,48 @@
 .errorPage {
   width: 100%;
-  min-height: 500px;
-  padding: 40px 20px 60px;
+  min-height: 0;
+  padding: 20px 31px 60px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  gap: 32px;
   direction: rtl;
 }
 
 .errorImage {
   display: block;
-  width: min(300px, 100%);
-  height:auto;
+  width: min(70vw, 300px);
+  height: auto;
   object-fit: contain;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
 }
 
 .errorPage h1 {
   margin: 0 0 24px;
   color: #282828;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
- 
 }
 
 .homeButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 58px;
+  min-height: 50px;
   padding: 0 24px;
-  box-sizing: border-box;
   border-radius: 8px;
   background-color: #d8ffe1;
   color: #28a745;
-  font-size: 20px;
+  font-size: 13px;
   font-weight: 600;
   text-decoration: none;
   transition: background-color 0.2s ease;
@@ -45,4 +50,44 @@
 
 .homeButton:hover {
   background-color: #c5e9cc;
+}
+@media (min-width: 391px) and (max-width: 767px) {
+  .errorPage h1 {
+    font-size: 25px;
+  }
+  .homeButton {
+    font-size: 15px;
+    min-height: 55px;
+  }
+}
+
+@media (min-width: 768px) {
+  .errorPage {
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: clamp(130px, 14vw, 200px);
+    text-align: right;
+    min-height: 0;
+    padding: 0 31px;
+  }
+
+  .errorImage {
+    max-width:250px;
+    height: auto;
+  }
+
+  .content {
+    align-items: center;
+    gap: 28px;
+
+    max-width: 400px;
+  }
+  .homeButton {
+    font-size: 17px;
+    min-height: 58px;
+  }
+
+  .errorPage h1 {
+    font-size: 28px;
+  }
 }
