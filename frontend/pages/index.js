@@ -2,10 +2,13 @@ import HomePage from "../components/templates/HomePage";
 import { getTours } from "../services/tourService";
 import styles from "../styles/Home.module.css";
 
-function Home({ initialTours }) {
+function Home({ initialTours, initialToursError }) {
   return (
     <div className={styles.container}>
-      <HomePage initialTours={initialTours} />
+      <HomePage
+        initialTours={initialTours}
+        initialToursError={initialToursError}
+      />
     </div>
   );
 }
@@ -19,13 +22,17 @@ export async function getStaticProps() {
     return {
       props: {
         initialTours,
+        initialToursError: false,
       },
       revalidate: 3600,
     };
   } catch (error) {
+    console.error("Error fetching initial tours:", error);
+
     return {
       props: {
         initialTours: [],
+        initialToursError: true,
       },
       revalidate: 3600,
     };

@@ -45,15 +45,44 @@
   line-height: 100%;
   letter-spacing: 0%;
 }
+.retryButton {
+  margin-top: 24px;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 8px;
+  background-color: #28a745;
+  color: #fff;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.retryButton:hover:not(:disabled) {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+.retryButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.errorText {
+  padding-top: 20px;
+  
+}
 
 @media (min-width: 391px) and (max-width: 767px) {
-  
   .content h1 {
     font-size: 25px;
   }
   .content p {
     font-size: 17px;
   }
+  
 }
 
 @media (min-width: 768px) {
@@ -80,7 +109,8 @@
   .content h1 {
     font-size: 28px;
   }
-   .content p{
-    font-size:19px;
-   }
+  .content p {
+    font-size: 19px;
+  }
+  
 }

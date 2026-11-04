@@ -30,6 +30,7 @@ function useTourSearch(initialTours = []) {
     error,
   } = useTours(searchFilters, {
     enabled: hasSearchFilters,
+    retry: false,
   });
 
   useEffect(() => {
