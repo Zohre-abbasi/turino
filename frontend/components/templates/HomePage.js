@@ -6,6 +6,7 @@ import useNetworkStatus from "../../hooks/useNetworkStatus";
 import Banner from "../modules/Banner";
 import TourSearch from "../modules/TourSearch";
 import TourList from "../modules/TourList";
+import ContactBanner from "../modules/ContactBanner";
 
 function HomePage({ initialTours, initialToursError }) {
   const searchProps = useTourSearch(initialTours);
@@ -45,6 +46,7 @@ function HomePage({ initialTours, initialToursError }) {
       {isError && <p>{error?.message || "خطا در دریافت تورها"}</p>}
 
       {!isLoading && !isError && <TourList tours={filteredTours || []} />}
+      <ContactBanner />
     </>
   );
 }
