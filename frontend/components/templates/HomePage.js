@@ -8,6 +8,7 @@ import TourSearch from "../modules/TourSearch";
 import TourList from "../modules/TourList";
 import ContactBanner from "../modules/ContactBanner";
 import WhyTurino from "../modules/WhyTurino";
+import TurinoAdvantages from "../modules/TurinoAdvantages";
 
 function HomePage({ initialTours, initialToursError }) {
   const searchProps = useTourSearch(initialTours);
@@ -48,7 +49,8 @@ function HomePage({ initialTours, initialToursError }) {
 
       {!isLoading && !isError && <TourList tours={filteredTours || []} />}
       <ContactBanner />
-      <WhyTurino/>
+      <WhyTurino />
+      <TurinoAdvantages />
     </>
   );
 }
