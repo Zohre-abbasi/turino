@@ -39,9 +39,9 @@ const getTourDuration = (startDate, endDate) => {
   const end = new Date(endDate);
 
   const difference = end.getTime() - start.getTime();
-  const days = Math.ceil(difference / (1000 * 60 * 60 * 24));
+  const nights = Math.ceil(difference / (1000 * 60 * 60 * 24));
 
-  return days > 0 ? `${days} روزه` : "";
+  return nights > 0 ? `${nights + 1} روز و ${nights} شب` : "";
 };
 
 const getHotelStars = (options = []) => {

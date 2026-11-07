@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./TourCard.module.css";
 import {
   getPersianVehicleName,
@@ -8,7 +9,7 @@ import {
 } from "../../utils/tourUtils";
 
 function TourCard({ tour }) {
-  const { image, title, startDate, endDate, fleetVehicle, price, options } =
+  const { id, image, title, startDate, endDate, fleetVehicle, price, options } =
     tour;
 
   const month = getPersianMonth(startDate);
@@ -34,10 +35,9 @@ function TourCard({ tour }) {
         <div className={styles.divider}></div>
 
         <div className={styles.footer}>
-          <button type="button" className={styles.reserveButton}>
+          <Link href={`/tours/${id}`} className={styles.reserveButton}>
             رزرو
-          </button>
-
+          </Link>
           <p className={styles.price}>
             {priceInPersian} <span>تومان</span>
           </p>

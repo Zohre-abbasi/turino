@@ -1,0 +1,361 @@
+.tourDetails {
+  width: 100%;
+  margin: 20px auto;
+  padding: 0 31px;
+  direction: rtl;
+}
+
+.mainInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.imageWrapper {
+  grid-area: image;
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tourImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.contentInfo {
+  direction: rtl;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.titleSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tourTitle {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.duration {
+  font-size: 15px;
+  color: #282828;
+}
+
+.benefits {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 5px;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: 1 1 100px;
+  min-width: 0;
+  font-size: 13px;
+  text-align: center;
+  color: #7d7d7d;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  gap: 5px;
+}
+
+.featureItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  flex: 1 1 100px;
+  min-width: 0;
+}
+
+.featureTitle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: #444444;
+}
+
+.featureIcon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.featureItem strong {
+  font-size: 12px;
+  padding-right: 19px;
+  color: #000000;
+}
+
+.bookingSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.price strong {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: right;
+  color: #009eca;
+}
+.price span {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: right;
+  color: #282828cc;
+}
+
+.bookingButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 17px;
+  border-radius: 8px;
+  background-color: #28a745;
+  color: #fff;
+  text-decoration: none;
+  max-width: 140px;
+  min-width: 0;
+  font-size: 12px;
+}
+
+.desktopDetails {
+  display: none;
+}
+
+@media (min-width: 410px) and (max-width: 767px) {
+  .tourDetails {
+    padding: 22px 24px;
+    max-width: 550px;
+  }
+
+  .mainInfo {
+    gap: 22px;
+  }
+
+  .imageWrapper {
+    max-height: 300px;
+  }
+
+  .tourImage {
+    max-height: 300px;
+  }
+
+  .contentInfo {
+    gap: 40px;
+  }
+
+  .tourTitle {
+    font-size: 35px;
+  }
+
+  .duration {
+    font-size: 20px;
+  }
+
+  .featureTitle {
+    font-size: 13px;
+  }
+
+  .featureIcon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .featureItem strong {
+    font-size: 13px;
+    padding-right: 22px;
+  }
+
+  .price strong {
+    font-size: 30px;
+  }
+  .price span {
+    font-size: 18px;
+  }
+
+  .bookingButton {
+    padding: 12px 20px;
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 768px) {
+  .features {
+    display: none;
+  }
+  .container {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    padding: 1px 31px;
+    background: #f3f3f3;
+  }
+  .tourDetails {
+    padding-top: 20px;
+    padding-right: 0px;
+    border: 1px solid #00000033;
+    background-color: #fff;
+  }
+
+  .mainInfo {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    grid-template-areas: "content image";
+    direction: ltr;
+    align-items: start;
+  }
+
+  .imageWrapper {
+    max-height: 170px;
+    grid-area: image;
+    align-self: start;
+    overflow: hidden;
+    padding-right: 10px;
+  }
+
+  .tourImage {
+    max-height: 170px;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .contentInfo {
+    grid-area: content;
+    gap: 18px;
+  }
+
+  .titleSection {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .tourTitle {
+    font-size: 30px;
+  }
+
+  .duration {
+    font-size: 15px;
+    padding-top:3px;
+  }
+  .benefits {
+    width: fit-content;
+    justify-content: flex-start;
+    gap: 36px;
+    flex-wrap: nowrap;
+    padding-top:7px;
+  }
+
+  .benefitItem {
+    flex-direction: row;
+    gap: 7px;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+
+  .bookingSection {
+    direction: ltr;
+  }
+
+  .bookingButton {
+    padding: 12px 36px;
+    font-size: 15px;
+  }
+  .price {
+    font-size: 14px;
+    gap: 10px;
+    direction: rtl;
+  }
+
+  .price strong {
+    font-size: 25px;
+  }
+  .price span {
+    font-size: 15px;
+  }
+
+  .desktopDetails {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    padding: 40px 0 30px 0;
+    direction: rtl;
+  }
+
+  .detailItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 0;
+    text-align: center;
+    border-left: 1px solid #e5e5e5;
+    text-align: center;
+  }
+
+  .detailLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .detailItem:last-child {
+    border-left: none;
+  }
+
+  .detailItem span {
+    font-size: 14px;
+    color: #444444;
+  }
+
+  .detailItem strong {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}

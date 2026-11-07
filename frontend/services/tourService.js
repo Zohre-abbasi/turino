@@ -8,4 +8,10 @@ const getTours = async (filters = {}) => {
   return data;
 };
 
-export { getTours };
+const getTourById = async (tourId) => {
+  const { data } = await api.get(`/tour/${tourId}`);
+
+  return data;
+};
+
+export { getTours, getTourById };

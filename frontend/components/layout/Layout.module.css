@@ -17,6 +17,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: #ffffff;
+  border-bottom: 1px solid #00000040;
 }
 
 .menuButton,
@@ -244,7 +245,7 @@
     display: none;
   }
   .menuOverlay {
-    display:none;
+    display: none;
   }
 
   .desktopLogo {
