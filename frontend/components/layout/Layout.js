@@ -1,28 +1,25 @@
 import styles from "./Layout.module.css";
 import LoginModal from "../modules/LoginModal";
 import OtpModal from "../modules/OtpModal";
-import { useEffect, useState, useRef } from "react";
-import { getUserProfile } from "../../services/userService";
+import { useEffect, useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 import Link from "next/link";
 
 function Layout({ children }) {
+  const { user, login, logout, isLoading } = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isOtpOpen, setIsOtpOpen] = useState(false);
   const [mobile, setMobile] = useState("");
   const [testCode, setTestCode] = useState("");
-  const [user, setUser] = useState(null);
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
-
-  const hasRestoredUser = useRef(false);
 
   useEffect(() => {
     const handleAuthExpired = () => {
-      setUser(null);
       setMobile("");
       setTestCode("");
-
       setIsOtpOpen(false);
+      setIsAccountMenuOpen(false);
       setIsLoginOpen(true);
     };
 
@@ -33,37 +30,6 @@ function Layout({ children }) {
     };
   }, []);
 
-  useEffect(() => {
-    if (hasRestoredUser.current) return;
-
-    hasRestoredUser.current = true;
-    async function restoreUser() {
-      const accessToken = localStorage.getItem("accessToken");
-      const refreshToken = localStorage.getItem("refreshToken");
-
-      // اگر توکن‌ها وجود نداشتند، نیازی به بازیابی ورود نیست
-      if (!accessToken || !refreshToken) {
-        setUser(null);
-        return;
-      }
-
-      try {
-        const userData = await getUserProfile();
-
-        setUser(userData);
-        setMobile(userData.mobile);
-      } catch (error) {
-        console.error("بازیابی اطلاعات کاربر ناموفق بود:", error);
-
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-
-        setUser(null);
-      }
-    }
-    restoreUser();
-  }, []);
-
   const handleOtpSent = (mobileNumber, code) => {
     setMobile(mobileNumber);
     setTestCode(code || "");
@@ -72,32 +38,22 @@ function Layout({ children }) {
   };
 
   const handleLoginSuccess = (data) => {
-    if (!data.accessToken || !data.refreshToken || !data.user) {
-      console.error("پاسخ احراز هویت کامل نیست.");
-      return;
-    }
+    const success = login(data);
 
-    localStorage.setItem("accessToken", data.accessToken);
-    localStorage.setItem("refreshToken", data.refreshToken);
+    if (!success) return;
 
-    setUser(data.user);
     setMobile(data.user.mobile);
     setTestCode("");
     setIsOtpOpen(false);
   };
-
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-
-    setUser(null);
+    logout();
     setMobile("");
     setTestCode("");
     setIsAccountMenuOpen(false);
     setIsOtpOpen(false);
     setIsLoginOpen(false);
   };
-
   return (
     <div className={styles.page}>
       {testCode && (
@@ -125,74 +81,75 @@ function Layout({ children }) {
           <Link href="/">درباره ما</Link>
           <Link href="/">تماس با ما</Link>
         </nav>
-        {user ? (
-          <div className={styles.accountMenuWrapper}>
+        {!isLoading &&
+          (user ? (
+            <div className={styles.accountMenuWrapper}>
+              <button
+                className={styles.loginButton}
+                onClick={() => setIsAccountMenuOpen((prev) => !prev)}
+                aria-expanded={isAccountMenuOpen}
+                aria-label="منوی حساب کاربری"
+              >
+                <img src="/icons/profile.png" className={styles.userProfile} />
+                <span dir="ltr">{user.mobile}</span>
+                <span className={styles.accountArrow}>
+                  <img src="/icons/arrow-down.png" />
+                </span>
+              </button>
+
+              {isAccountMenuOpen && (
+                <div className={styles.accountDropdown}>
+                  <div className={styles.accountDropdownHeader}>
+                    <span className={styles.accountIcon}>
+                      <img src="/icons/profile4.png" alt="حساب کاربری" />
+                    </span>
+                    <span dir="ltr">{user.mobile}</span>
+                  </div>
+
+                  <div className={styles.dropdownDivider}></div>
+
+                  <Link
+                    href="/profile"
+                    className={styles.dropdownItem}
+                    onClick={() => setIsAccountMenuOpen(false)}
+                  >
+                    <img src="/icons/profile3.png" />
+                    <span>اطلاعات حساب کاربری</span>
+                  </Link>
+
+                  <div className={styles.dropdownDivider}></div>
+
+                  <button
+                    className={`${styles.dropdownItem} ${styles.logoutItem}`}
+                    onClick={handleLogout}
+                  >
+                    <img src="/icons/logout.png" />
+                    <span>خروج از حساب کاربری</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
             <button
               className={styles.loginButton}
-              onClick={() => setIsAccountMenuOpen((prev) => !prev)}
-              aria-expanded={isAccountMenuOpen}
-              aria-label="منوی حساب کاربری"
+              onClick={() => {
+                if (!isOtpOpen) setIsLoginOpen(true);
+              }}
+              aria-label="ورود یا ثبت‌نام"
             >
-              <img src="/icons/profile.png" className={styles.userProfile}/>
-              <span dir="ltr">{user.mobile}</span>
-              <span className={styles.accountArrow}>
-               <img src="/icons/arrow-down.png"/>
+              <span className={styles.mobileLogin}>
+                <img
+                  src={isOtpOpen ? "/icons/sign.png" : "/icons/sign-in.png"}
+                  alt={isOtpOpen ? "پروفایل" : "ورود"}
+                />
+              </span>
+
+              <span className={styles.desktopLogin}>
+                <img src="/icons/profile.png" alt="پروفایل" />
+                ورود | ثبت‌نام
               </span>
             </button>
-
-            {isAccountMenuOpen && (
-              <div className={styles.accountDropdown}>
-                <div className={styles.accountDropdownHeader}>
-                  <span className={styles.accountIcon}>
-                    <img src="/icons/profile4.png" alt="حساب کاربری" />
-                  </span>
-                  <span dir="ltr">{user.mobile}</span>
-                </div>
-
-                <div className={styles.dropdownDivider}></div>
-
-                <Link
-                  href="/profile"
-                  className={styles.dropdownItem}
-                  onClick={() => setIsAccountMenuOpen(false)}
-                >
-                  <img src="/icons/profile3.png"/>
-                  <span>اطلاعات حساب کاربری</span>
-                </Link>
-
-                <div className={styles.dropdownDivider}></div>
-
-                <button
-                  className={`${styles.dropdownItem} ${styles.logoutItem}`}
-                  onClick={handleLogout}
-                >
-                  <img src="/icons/logout.png"/>
-                  <span>خروج از حساب کاربری</span>
-                </button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <button
-            className={styles.loginButton}
-            onClick={() => {
-              if (!isOtpOpen) setIsLoginOpen(true);
-            }}
-            aria-label="ورود یا ثبت‌نام"
-          >
-            <span className={styles.mobileLogin}>
-              <img
-                src={isOtpOpen ? "/icons/sign.png" : "/icons/sign-in.png"}
-                alt={isOtpOpen ? "پروفایل" : "ورود"}
-              />
-            </span>
-
-            <span className={styles.desktopLogin}>
-              <img src="/icons/profile.png" alt="پروفایل" />
-              ورود | ثبت‌نام
-            </span>
-          </button>
-        )}
+          ))}
       </header>
       {isMenuOpen && (
         <div
