@@ -1,7 +1,8 @@
 import styles from "./Layout.module.css";
 import LoginModal from "../modules/LoginModal";
 import OtpModal from "../modules/OtpModal";
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { getUserProfile } from "../../services/userService";
 import Link from "next/link";
 
 function Layout({ children }) {
@@ -11,6 +12,56 @@ function Layout({ children }) {
   const [mobile, setMobile] = useState("");
   const [testCode, setTestCode] = useState("");
   const [user, setUser] = useState(null);
+
+  const hasRestoredUser = useRef(false);
+
+  useEffect(() => {
+    const handleAuthExpired = () => {
+      setUser(null);
+      setMobile("");
+      setTestCode("");
+
+      setIsOtpOpen(false);
+      setIsLoginOpen(true);
+    };
+
+    window.addEventListener("auth-expired", handleAuthExpired);
+
+    return () => {
+      window.removeEventListener("auth-expired", handleAuthExpired);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (hasRestoredUser.current) return;
+
+    hasRestoredUser.current = true;
+    async function restoreUser() {
+      const accessToken = localStorage.getItem("accessToken");
+      const refreshToken = localStorage.getItem("refreshToken");
+
+      // اگر توکن‌ها وجود نداشتند، نیازی به بازیابی ورود نیست
+      if (!accessToken || !refreshToken) {
+        setUser(null);
+        return;
+      }
+
+      try {
+        const userData = await getUserProfile();
+
+        setUser(userData);
+        setMobile(userData.mobile);
+      } catch (error) {
+        console.error("بازیابی اطلاعات کاربر ناموفق بود:", error);
+
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+
+        setUser(null);
+      }
+    }
+    restoreUser();
+  }, []);
 
   const handleOtpSent = (mobileNumber, code) => {
     setMobile(mobileNumber);
@@ -75,7 +126,10 @@ function Layout({ children }) {
           ) : (
             <>
               <span className={styles.mobileLogin}>
-                <img src="/icons/sign-in.png" alt="ورود" />
+                <img
+                  src={isOtpOpen ? "/icons/sign.png" : "/icons/sign-in.png"}
+                  alt={isOtpOpen ? "پروفایل" : "ورود"}
+                />
               </span>
 
               <span className={styles.desktopLogin}>
