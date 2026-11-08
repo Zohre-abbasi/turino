@@ -12,6 +12,7 @@ function Layout({ children }) {
   const [mobile, setMobile] = useState("");
   const [testCode, setTestCode] = useState("");
   const [user, setUser] = useState(null);
+  const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
 
   const hasRestoredUser = useRef(false);
 
@@ -85,6 +86,18 @@ function Layout({ children }) {
     setIsOtpOpen(false);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+
+    setUser(null);
+    setMobile("");
+    setTestCode("");
+    setIsAccountMenuOpen(false);
+    setIsOtpOpen(false);
+    setIsLoginOpen(false);
+  };
+
   return (
     <div className={styles.page}>
       {testCode && (
@@ -112,33 +125,74 @@ function Layout({ children }) {
           <Link href="/">درباره ما</Link>
           <Link href="/">تماس با ما</Link>
         </nav>
-        <button
-          className={styles.loginButton}
-          onClick={() => {
-            if (!user && !isOtpOpen) {
-              setIsLoginOpen(true);
-            }
-          }}
-          aria-label={user ? `شماره موبایل ${user.mobile}` : "ورود یا ثبت‌نام"}
-        >
-          {user ? (
-            <span dir="ltr">{user.mobile}</span>
-          ) : (
-            <>
-              <span className={styles.mobileLogin}>
-                <img
-                  src={isOtpOpen ? "/icons/sign.png" : "/icons/sign-in.png"}
-                  alt={isOtpOpen ? "پروفایل" : "ورود"}
-                />
+        {user ? (
+          <div className={styles.accountMenuWrapper}>
+            <button
+              className={styles.loginButton}
+              onClick={() => setIsAccountMenuOpen((prev) => !prev)}
+              aria-expanded={isAccountMenuOpen}
+              aria-label="منوی حساب کاربری"
+            >
+              <img src="/icons/profile.png" className={styles.userProfile}/>
+              <span dir="ltr">{user.mobile}</span>
+              <span className={styles.accountArrow}>
+               <img src="/icons/arrow-down.png"/>
               </span>
+            </button>
 
-              <span className={styles.desktopLogin}>
-                <img src="/icons/profile.png" alt="پروفایل" />
-                ورود | ثبت‌نام
-              </span>
-            </>
-          )}
-        </button>
+            {isAccountMenuOpen && (
+              <div className={styles.accountDropdown}>
+                <div className={styles.accountDropdownHeader}>
+                  <span className={styles.accountIcon}>
+                    <img src="/icons/profile4.png" alt="حساب کاربری" />
+                  </span>
+                  <span dir="ltr">{user.mobile}</span>
+                </div>
+
+                <div className={styles.dropdownDivider}></div>
+
+                <Link
+                  href="/profile"
+                  className={styles.dropdownItem}
+                  onClick={() => setIsAccountMenuOpen(false)}
+                >
+                  <img src="/icons/profile3.png"/>
+                  <span>اطلاعات حساب کاربری</span>
+                </Link>
+
+                <div className={styles.dropdownDivider}></div>
+
+                <button
+                  className={`${styles.dropdownItem} ${styles.logoutItem}`}
+                  onClick={handleLogout}
+                >
+                  <img src="/icons/logout.png"/>
+                  <span>خروج از حساب کاربری</span>
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <button
+            className={styles.loginButton}
+            onClick={() => {
+              if (!isOtpOpen) setIsLoginOpen(true);
+            }}
+            aria-label="ورود یا ثبت‌نام"
+          >
+            <span className={styles.mobileLogin}>
+              <img
+                src={isOtpOpen ? "/icons/sign.png" : "/icons/sign-in.png"}
+                alt={isOtpOpen ? "پروفایل" : "ورود"}
+              />
+            </span>
+
+            <span className={styles.desktopLogin}>
+              <img src="/icons/profile.png" alt="پروفایل" />
+              ورود | ثبت‌نام
+            </span>
+          </button>
+        )}
       </header>
       {isMenuOpen && (
         <div
