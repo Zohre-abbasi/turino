@@ -26,7 +26,6 @@ export function AuthProvider({ children }) {
         const userData = await getUserProfile();
         setUser(userData);
       } catch (error) {
-        console.error("بازیابی اطلاعات کاربر ناموفق بود:", error);
         setUser(null);
       } finally {
         setIsLoading(false);

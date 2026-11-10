@@ -1,9 +1,12 @@
-import styles from "./OtpModal.module.css";
-import OtpInputs from "./OtpInputs";
-
 import { useEffect, useState, useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
+
+import OtpInputs from "./OtpInputs";
 import api from "../../services/axiosInstance";
+
+import styles from "./OtpModal.module.css";
+
+
 
 const checkOtp = async ({ mobile, code }) => {
   const response = await api.post("/auth/check-otp", {

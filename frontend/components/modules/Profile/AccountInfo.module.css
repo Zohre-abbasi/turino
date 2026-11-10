@@ -90,7 +90,7 @@
   outline: none;
 }
 
-.accountItem input + .actionButton {
+/* .accountItem input + .actionButton {
   flex: 1 0 auto;
   height: 40px;
   padding: 0 18px;
@@ -99,6 +99,85 @@
   background: #28a745;
   color: #fff;
   font-size: 16px;
+} */
+
+/* .accountItem form {
+  display: grid;
+  grid-template-columns: minmax(0, 65%) auto;
+  align-items: center;
+  gap: 8px 14px;
+  width: 100%;
+  min-width: 0;
+}
+
+.accountItem form input {
+  width: 100%;
+}
+
+.accountItem form .actionButton {
+  height: 40px;
+  padding: 0 18px;
+  border: 1px solid #28a745;
+  border-radius: 8px;
+  background: #28a745;
+  color: #fff;
+  font-size: 16px;
+}
+
+.accountItem form .error {
+  grid-column: 1 / -1;
+  margin: 0;
+} */
+.accountItem form {
+  display: grid;
+  grid-template-columns: minmax(0, 65%) auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 8px 14px;
+  width: 100%;
+  min-width: 0;
+}
+
+.accountItem form input {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+}
+
+.accountItem form .actionButton {
+  grid-column: 2;
+  grid-row: 1;
+  flex: none;
+  height: 40px;
+  padding: 0 18px;
+  border: 1px solid #28a745;
+  border-radius: 8px;
+  background: #28a745;
+  color: #fff;
+  font-size: 16px;
+}
+
+.accountItem form .error {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin: 0;
+}
+.success {
+  color: #16834a;
+  background-color: #eaf7ef;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.error {
+  color: #d32f2f;
+  background-color: #fdecec;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-top: 12px;
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
@@ -139,7 +218,11 @@
     flex-shrink: 0;
   }
 
-  .accountItem input + .actionButton {
+  /* .accountItem input + .actionButton {
+    margin-right: 0;
+  } */
+
+  .accountItem form .actionButton {
     margin-right: 0;
   }
 }

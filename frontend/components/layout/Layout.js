@@ -3,10 +3,11 @@ import LoginModal from "../modules/LoginModal";
 import OtpModal from "../modules/OtpModal";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { getUserProfile } from "../../services/userService";
 import Link from "next/link";
 
 function Layout({ children }) {
-  const { user, login, logout, isLoading } = useAuth();
+  const { user, login, logout, isLoading, updateUser } = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isOtpOpen, setIsOtpOpen] = useState(false);
@@ -37,15 +38,28 @@ function Layout({ children }) {
     setIsOtpOpen(true);
   };
 
-  const handleLoginSuccess = (data) => {
+  const handleLoginSuccess = async (data) => {
     const success = login(data);
 
     if (!success) return;
 
-    setMobile(data.user.mobile);
-    setTestCode("");
-    setIsOtpOpen(false);
+    try {
+      const profileData = await getUserProfile();
+
+      updateUser(profileData);
+
+      setMobile(data.user.mobile);
+      setTestCode("");
+      setIsOtpOpen(false);
+    } catch (error) {
+      logout();
+      setMobile("");
+      setTestCode("");
+      setIsOtpOpen(false);
+      setIsLoginOpen(true);
+    }
   };
+
   const handleLogout = () => {
     logout();
     setMobile("");

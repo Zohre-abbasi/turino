@@ -94,6 +94,13 @@
   gap: 16px;
   width: 100%;
 }
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+}
 
 .bankForm input {
   width: 100%;
@@ -138,6 +145,25 @@
 .formActions button:last-child {
   background-color: #fff;
   color: #28a745;
+}
+
+.error,
+.success {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.error {
+  color: #d32f2f;
+  background-color: #fdecec;
+}
+
+.success {
+  color: #16834a;
+  background-color: #eaf7ef;
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
@@ -209,5 +235,8 @@
 
   .formActions button {
     flex: 0 0 150px;
+  }
+  .bankForm > .error {
+    grid-column: 1 / -1;
   }
 }

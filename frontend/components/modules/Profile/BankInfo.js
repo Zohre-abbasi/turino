@@ -1,16 +1,51 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "../../../context/AuthContext";
+import { updateUserProfile } from "../../../services/userService";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { bankInfoSchema } from "../../../validations/valid";
 import styles from "./BankInfo.module.css";
 
 function BankInfo({ user }) {
+  const { updateUser } = useAuth();
+
+  const [isBankEditing, setIsBankEditing] = useState(false);
+  const [apiSuccess, setApiSuccess] = useState("");
+  const [apiError, setApiError] = useState("");
+
   const initialBankInfo = {
     shaba_code: user.payment?.shaba_code || "",
     accountIdentifier: user.payment?.accountIdentifier || "",
     debitCard_code: user.payment?.debitCard_code || "",
   };
 
-  const [isBankEditing, setIsBankEditing] = useState(false);
   const [bankInfo, setBankInfo] = useState(initialBankInfo);
   const [savedBankInfo, setSavedBankInfo] = useState(initialBankInfo);
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    clearErrors,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(bankInfoSchema),
+    mode: "onSubmit",
+    reValidateMode: "onSubmit",
+    defaultValues: initialBankInfo,
+  });
+
+  useEffect(() => {
+    if (!apiSuccess && !apiError) return;
+
+    const timer = setTimeout(() => {
+      setApiSuccess("");
+      setApiError("");
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [apiSuccess, apiError]);
 
   const showValue = (value) => {
     if (value === null || value === undefined || value === "") {
@@ -22,18 +57,56 @@ function BankInfo({ user }) {
 
   const handleEdit = () => {
     setBankInfo({ ...savedBankInfo });
+
+    reset(savedBankInfo);
+    clearErrors();
+    setApiError("");
+    setApiSuccess("");
+
     setIsBankEditing(true);
   };
 
-  const handleConfirm = () => {
-    setSavedBankInfo({ ...bankInfo });
-    setIsBankEditing(false);
+  const handleConfirm = async (data) => {
+    setApiError("");
+    setApiSuccess("");
+
+    try {
+      const response = await updateUserProfile({
+        payment: {
+          ...user.payment,
+          ...data,
+        },
+      });
+
+      updateUser(response.user);
+
+      const updatedBankInfo = {
+        shaba_code: response.user.payment?.shaba_code || "",
+        accountIdentifier: response.user.payment?.accountIdentifier || "",
+        debitCard_code: response.user.payment?.debitCard_code || "",
+      };
+
+      setBankInfo(updatedBankInfo);
+      setSavedBankInfo(updatedBankInfo);
+      setIsBankEditing(false);
+
+      setApiSuccess("اطلاعات بانکی با موفقیت ذخیره شد.");
+    } catch (error) {
+      setApiError(
+        error.response?.data?.message || "ذخیره اطلاعات بانکی ناموفق بود.",
+      );
+    }
   };
 
   const handleCancel = () => {
     setBankInfo({ ...savedBankInfo });
+    reset(savedBankInfo);
+    clearErrors();
+    setApiError("");
+    setApiSuccess("");
     setIsBankEditing(false);
   };
+
   const bankFields = [
     {
       name: "shaba_code",
@@ -69,31 +142,40 @@ function BankInfo({ user }) {
       </div>
 
       {isBankEditing ? (
-        <div className={styles.bankForm}>
+        <form
+          className={styles.bankForm}
+          onSubmit={handleSubmit(handleConfirm)}
+        >
           {bankFields.map((field) => (
-            <input
-              key={field.name}
-              type="text"
-              placeholder={field.placeholder}
-              value={bankInfo[field.name]}
-              onChange={(e) =>
-                setBankInfo({
-                  ...bankInfo,
-                  [field.name]: e.target.value,
-                })
-              }
-            />
+            <div key={field.name} className={styles.inputGroup}>
+              <input
+                type="text"
+                placeholder={field.placeholder}
+                {...register(field.name)}
+                onChange={(e) => {
+                  setBankInfo({
+                    ...bankInfo,
+                    [field.name]: e.target.value,
+                  });
+
+                  setValue(field.name, e.target.value);
+                  clearErrors(field.name);
+                }}
+              />
+
+              {errors[field.name] && (
+                <p className={styles.error}>{errors[field.name].message}</p>
+              )}
+            </div>
           ))}
           <div className={styles.formActions}>
-            <button type="button" onClick={handleConfirm}>
-              تأیید
-            </button>
+            <button type="submit">تأیید</button>
 
             <button type="button" onClick={handleCancel}>
               انصراف
             </button>
           </div>
-        </div>
+        </form>
       ) : (
         <div className={styles.bankColumns}>
           <div className={styles.infoGroup}>
@@ -122,6 +204,9 @@ function BankInfo({ user }) {
           </div>
         </div>
       )}
+      {apiSuccess && <p className={styles.success}>{apiSuccess}</p>}
+
+      {apiError && <p className={styles.error}>{apiError}</p>}
     </section>
   );
 }
