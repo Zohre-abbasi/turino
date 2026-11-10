@@ -1,0 +1,145 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+  min-width: 0;
+  padding: 24px;
+  background-color: #fff;
+  border: 1px solid #00000033;
+  border-radius: 10px;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(10px, 5vw, 16px);
+  font-weight: 500;
+  color: #000;
+}
+
+.actionButton {
+  display: flex;
+  flex: 0 1 auto;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(3px, 1vw, 6px);
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #009eca;
+  font-family: inherit;
+  font-size: clamp(10px, 2.8vw, 13px);
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.actionButton img {
+  width: clamp(13px, 3.5vw, 16px);
+  height: clamp(13px, 3.5vw, 16px);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.label {
+  color: #000;
+  font-size: clamp(10px, 5vw, 16px);
+  font-weight: 400;
+}
+
+.value {
+  color: #282828;
+  font-size: clamp(9px, 5vw, 16px);
+  font-weight: 500;
+  text-align: left;
+  direction: ltr;
+}
+
+.accountColumns {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  min-width: 0;
+}
+
+.accountItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-width: 0;
+}
+
+.accountItem .value {
+  min-width: 0;
+}
+
+.accountItem input {
+  flex: 0 1 65%;
+  width: 65%;
+  min-width: 0;
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid #00000080;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 12px;
+  direction: rtl;
+  outline: none;
+}
+
+.accountItem input + .actionButton {
+  flex: 1 0 auto;
+  height: 40px;
+  padding: 0 18px;
+  border: 1px solid #28a745;
+  border-radius: 8px;
+  background: #28a745;
+  color: #fff;
+  font-size: 16px;
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .card {
+    padding: 34px;
+  }
+}
+
+@media (min-width: 768px) {
+  .card {
+    gap: 16px;
+    padding: 18px 22px;
+  }
+
+  .title {
+    font-size: 15px;
+  }
+
+  .label,
+  .value {
+    font-size: 13px;
+  }
+
+  .accountColumns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 23px;
+  }
+
+  .accountItem {
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .accountItem .actionButton {
+    margin-right: auto;
+    flex-shrink: 0;
+  }
+
+  .accountItem input + .actionButton {
+    margin-right: 0;
+  }
+}
