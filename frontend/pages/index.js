@@ -15,7 +15,7 @@ function Home({ initialTours, initialToursError }) {
 
 export default Home;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   try {
     const initialTours = await getTours();
 
@@ -24,7 +24,6 @@ export async function getStaticProps() {
         initialTours,
         initialToursError: false,
       },
-      revalidate: 3600,
     };
   } catch (error) {
     console.error("Error fetching initial tours:", error);
@@ -34,7 +33,6 @@ export async function getStaticProps() {
         initialTours: [],
         initialToursError: true,
       },
-      revalidate: 3600,
     };
   }
 }
