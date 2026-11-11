@@ -16,6 +16,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.91.0",
+    "react-hot-toast": "^2.6.1",
     "react18-input-otp": "^1.1.4",
     "yup": "^1.7.1",
     "zaman": "^2.1.1"

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { addTourToBasket } from "../../services/basketService";
-
+import toast from "react-hot-toast";
 
 import styles from "./TourDetailsPage.module.css";
 
@@ -24,9 +24,11 @@ function TourDetailsPage({ tour }) {
     try {
       setIsLoading(true);
 
-      await addTourToBasket(tour.id);
-
-      router.push("/checkout");
+      const data = await addTourToBasket(tour.id);
+      toast.success(data.message);
+      setTimeout(() => {
+        router.push("/checkout");
+      }, 1000);
     } catch (error) {
       console.error("Error adding tour to basket:", error);
     } finally {
