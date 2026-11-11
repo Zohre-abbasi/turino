@@ -51,3 +51,25 @@ export const bankInfoSchema = yup.object({
     .required("وارد کردن شماره کارت الزامی است.")
     .matches(/^\d{16}$/, "شماره کارت باید ۱۶ رقم باشد."),
 });
+// اعتبارسنجی اطلاعات مسافر در صفحه تسویه‌حساب
+export const passengerSchema = yup.object({
+  fullName: yup
+    .string()
+    .trim()
+    .required("وارد کردن نام و نام خانوادگی الزامی است.")
+    .test("fullName", "لطفاً نام و نام خانوادگی را وارد کنید.", (value) => {
+      return value && value.trim().split(/\s+/).length >= 2;
+    }),
+
+  nationalCode: yup
+    .string()
+    .required("وارد کردن کد ملی الزامی است.")
+    .matches(/^[0-9۰-۹٠-٩]{10}$/, "کد ملی باید ۱۰ رقم باشد."),
+
+  gender: yup
+    .string()
+    .required("انتخاب جنسیت الزامی است.")
+    .oneOf(["male", "female"], "جنسیت انتخاب‌شده معتبر نیست."),
+
+  birthDate: yup.string().required("انتخاب تاریخ تولد الزامی است."),
+});

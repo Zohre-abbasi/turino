@@ -155,6 +155,7 @@
   align-items: center;
   justify-content: center;
   padding: 10px 17px;
+  border: none;
   border-radius: 8px;
   background-color: #28a745;
   color: #fff;
@@ -162,7 +163,11 @@
   max-width: 140px;
   min-width: 0;
   font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  appearance: none;
 }
+
 
 .desktopDetails {
   display: none;
@@ -282,14 +287,14 @@
 
   .duration {
     font-size: 15px;
-    padding-top:3px;
+    padding-top: 3px;
   }
   .benefits {
     width: fit-content;
     justify-content: flex-start;
     gap: 36px;
     flex-wrap: nowrap;
-    padding-top:7px;
+    padding-top: 7px;
   }
 
   .benefitItem {

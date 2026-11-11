@@ -1,0 +1,38 @@
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 31px;
+}
+
+.checkoutContent {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  direction: rtl;
+}
+
+.passengerSection,
+.summarySection {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .container {
+    padding: 32px 31px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    min-height: calc(100vh - 337px);
+    background-color: #f3f3f3;
+    padding: 32px 31px;
+  }
+  .checkoutContent {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: start;
+    
+  }
+}

@@ -1,4 +1,8 @@
-import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { addTourToBasket } from "../../services/basketService";
+
+
 import styles from "./TourDetailsPage.module.css";
 
 import { formatPersianDate } from "../../utils/dateUtils";
@@ -12,6 +16,23 @@ import {
 
 function TourDetailsPage({ tour }) {
   if (!tour) return null;
+
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleReserve = async () => {
+    try {
+      setIsLoading(true);
+
+      await addTourToBasket(tour.id);
+
+      router.push("/checkout");
+    } catch (error) {
+      console.error("Error adding tour to basket:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const details = [
     {
@@ -123,12 +144,14 @@ function TourDetailsPage({ tour }) {
               ))}
             </div>
             <div className={styles.bookingSection}>
-              <Link
-                href={`/booking/${tour.id}`}
+              <button
+                type="button"
                 className={styles.bookingButton}
+                onClick={handleReserve}
+                disabled={isLoading}
               >
-                رزرو و خرید
-              </Link>
+                {isLoading ? "در حال افزودن..." : "رزرو و خرید"}
+              </button>
               <div className={styles.price}>
                 <strong>{formatPersianPrice(tour.price)}</strong>
                 <span>تومان</span>

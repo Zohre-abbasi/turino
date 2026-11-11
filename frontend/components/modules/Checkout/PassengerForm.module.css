@@ -1,0 +1,136 @@
+.container {
+  width: 100%;
+  padding: 16px;
+  background-color: #fff;
+  border: 1px solid #00000033;
+  border-radius: 10px;
+}
+.title {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  direction: rtl;
+  margin-bottom: 24px;
+}
+.title img {
+  width: 24px;
+  height: 24px;
+}
+.title h2 {
+  font-size: 24px;
+  font-weight: 500;
+  text-align: right;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.input {
+  width: 100%;
+  height: 48px;
+  padding: 12px;
+  border: 1px solid #00000080;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 16px;
+  color: #282828;
+  direction: rtl;
+  outline: none;
+}
+
+.input:focus,
+.birthDateInput input:focus {
+  border-color: #28a745;
+}
+
+.input::placeholder,
+.birthDateInput input::placeholder {
+  color: #00000080;
+}
+
+.birthDateWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.birthDateInput {
+  position: relative;
+  width: 100%;
+  border: 1px solid #00000080;
+  border-radius: 5px;
+}
+
+.birthDateInput img {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
+
+.birthDateInput input {
+  width: 100%;
+  height: 48px;
+  padding: 0 40px 0 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 16px;
+  direction: rtl;
+  cursor: pointer;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.calendarPopup {
+  position: absolute;
+  top: 55px;
+  right: 0;
+  z-index: 10;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.error {
+  color: #e53935;
+  font-size: 12px;
+  text-align: right;
+  direction: rtl;
+  margin: 0;
+}
+
+@media (min-width: 576px) {
+  .form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .birthDateWrapper {
+    grid-column: 2 / 3;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 24px;
+  }
+
+  .form {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .birthDateWrapper {
+    grid-column: 1 / 2;
+  }
+}

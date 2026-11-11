@@ -67,6 +67,7 @@ export function AuthProvider({ children }) {
   const logout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    sessionStorage.removeItem("passengerInfo");
 
     setUser(null);
   };
