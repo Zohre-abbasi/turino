@@ -23,7 +23,7 @@ function TourSummary({ tour }) {
         </div>
       </div>
 
-      <button type="button" className={styles.button}>
+      <button type="submit" className={styles.button}>
         ثبت و خرید نهایی
       </button>
     </div>

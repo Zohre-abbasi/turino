@@ -1,4 +1,3 @@
-
 .container {
   width: 100%;
   margin: 0 auto;
@@ -15,6 +14,24 @@
 .passengerSection,
 .summarySection {
   width: 100%;
+}
+.emptyBasket {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.emptyBasket p {
+  padding: 25px 40px;
+  background-color: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  color: #555;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
 }
 
 @media (min-width: 576px) {
@@ -33,6 +50,5 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     align-items: start;
-    
   }
 }

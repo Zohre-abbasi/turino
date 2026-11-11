@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { passengerSchema } from "../../validations/valid";
 import PassengerForm from "../modules/Checkout/PassengerForm";
 import TourSummary from "../modules/Checkout/TourSummary";
+import { createOrder } from "../../services/orderService";
 
 import styles from "./CheckoutPage.module.css";
 
@@ -33,10 +34,15 @@ function CheckoutPage() {
     },
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      await createOrder(data);
+      router.push("/payment?status=success");
+    } catch (error) {
+      console.error(error);
+      router.push("/payment?status=failed");
+    }
   };
-
   useEffect(() => {
     const savedData = sessionStorage.getItem("passengerInfo");
 
@@ -95,7 +101,11 @@ function CheckoutPage() {
   }
 
   if (!basket) {
-    return <p>سبد خرید شما خالی است.</p>;
+    return (
+      <div className={styles.emptyBasket}>
+        <p>سبد خرید شما خالی است.</p>
+      </div>
+    );
   }
 
   return (
