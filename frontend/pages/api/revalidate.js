@@ -8,18 +8,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    // بررسی ارتباط با بک‌اند
     await getTours();
-
-    // بازتولید صفحه اصلی با استفاده از ISR
-    await res.revalidate("/");
 
     return res.status(200).json({
       success: true,
-      message: "صفحه اصلی با موفقیت به‌روزرسانی شد.",
+      message: "ارتباط با سرور برقرار است.",
     });
   } catch (error) {
-    console.error("Revalidation error:", error);
+    console.error("Retry error:", error);
 
     return res.status(503).json({
       success: false,

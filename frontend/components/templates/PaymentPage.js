@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Link from "next/link";
 import styles from "./PaymentPage.module.css";
 
 function PaymentPage() {
@@ -13,9 +14,9 @@ function PaymentPage() {
         <div className={styles.card}>
           <div className={`${styles.icon} ${styles.successIcon}`}>✓</div>
           <p className={styles.title}>پرداخت شما با موفقیت انجام شد.</p>
-          <a href="/profile/my-tours" className={styles.successButton}>
+          <Link href="/profile/my-tours" className={styles.successButton}>
             مشاهده تورهای من
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -26,9 +27,9 @@ function PaymentPage() {
       <div className={styles.card}>
         <div className={`${styles.icon} ${styles.failedIcon}`}>×</div>
         <p className={styles.title}>پرداخت با شکست مواجه شد.</p>
-        <a href="/checkout" className={styles.failedButton}>
+        <Link href="/checkout" className={styles.failedButton}>
           بازگشت به سبد خرید
-        </a>
+        </Link>
       </div>
     </div>
   );

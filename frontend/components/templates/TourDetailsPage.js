@@ -15,11 +15,11 @@ import {
 } from "../../utils/tourUtils";
 
 function TourDetailsPage({ tour }) {
-  if (!tour) return null;
-
+  
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-
+  
+  if (!tour) return null;
   const handleReserve = async () => {
     try {
       setIsLoading(true);
