@@ -1,0 +1,61 @@
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px 31px;
+  direction: rtl;
+}
+
+.myToursLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.sidebar {
+  width: 100%;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.error {
+  color: #dc3545;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 24px;
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .container {
+    padding: 10px 31px;
+  }
+
+  .myToursLayout {
+    gap: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  .myToursLayout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+   
+  }
+
+  .sidebar {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .content {
+    flex: 3;
+    padding:20px;
+    border: 1px solid #00000033;
+    border-radius: 10px;;
+    
+  }
+}

@@ -22,8 +22,6 @@
   text-decoration: none;
   font-size: clamp(9px, 4vw, 16px);
   font-weight: 500;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
   transition: color 0.2s ease;
   white-space: nowrap;
 }
@@ -87,7 +85,7 @@
   .tab:not(:last-child)::after {
     content: "";
     position: absolute;
-    bottom: 0;
+    bottom:0;
     left: 12px;
     right: 12px;
     height: 1px;

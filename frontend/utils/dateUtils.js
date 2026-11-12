@@ -9,6 +9,33 @@ const formatPersianDate = (date) => {
   }).format(new Date(date));
 };
 
+const formatPersianDateWithWeekday = (date) => {
+  if (!date) return "";
+
+  const parsedDate = new Date(date);
+
+  const weekday = new Intl.DateTimeFormat("fa-IR", {
+    weekday: "long",
+  }).format(parsedDate);
+
+  const day = new Intl.DateTimeFormat("fa-IR", {
+    day: "numeric",
+    calendar: "persian",
+  }).format(parsedDate);
+
+  const month = new Intl.DateTimeFormat("fa-IR", {
+    month: "long",
+    calendar: "persian",
+  }).format(parsedDate);
+
+  const year = new Intl.DateTimeFormat("fa-IR", {
+    year: "numeric",
+    calendar: "persian",
+  }).format(parsedDate);
+
+  return `${weekday} ${day} ${month} ${year}`;
+};
+
 const formatApiDate = (date) => {
   if (!date) return "";
 
@@ -27,4 +54,33 @@ const parseApiDate = (dateString) => {
   return new Date(year, month - 1, day);
 };
 
-export { formatPersianDate, formatApiDate, parseApiDate };
+const getTourStatus = (startDate, endDate) => {
+  if (!startDate || !endDate) return "";
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const start = new Date(startDate);
+  start.setHours(0, 0, 0, 0);
+
+  const end = new Date(endDate);
+  end.setHours(0, 0, 0, 0);
+
+  if (today < start) {
+    return "در انتظار شروع";
+  }
+
+  if (today > end) {
+    return "به اتمام رسیده";
+  }
+
+  return "در حال برگزاری";
+};
+
+export {
+  formatPersianDate,
+  formatPersianDateWithWeekday,
+  formatApiDate,
+  parseApiDate,
+  getTourStatus
+};

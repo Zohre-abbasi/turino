@@ -7,19 +7,22 @@ function UserPanelTabs({ activeTab }) {
       id: "profile",
       title: "پروفایل",
       href: "/profile",
-      icon: "/icons/profile.png",
+      icon: "/icons/profile7.png",
+      activeIcon: "/icons/profile.png",
     },
     {
       id: "my-tours",
       title: "تورهای من",
       href: "/profile/my-tours",
       icon: "/icons/sun.png",
+      activeIcon: "/icons/sun-green.png",
     },
     {
       id: "transactions",
       title: "تراکنش‌ها",
       href: "/profile/transactions",
       icon: "/icons/card.png",
+      activeIcon: "/icons/card-green.png",
     },
   ];
 
@@ -33,7 +36,7 @@ function UserPanelTabs({ activeTab }) {
             activeTab === tab.id ? styles.active : ""
           }`}
         >
-          <img src={tab.icon} alt="" />
+          <img src={activeTab === tab.id ? tab.activeIcon : tab.icon} alt="" />
           <span>{tab.title}</span>
         </Link>
       ))}
