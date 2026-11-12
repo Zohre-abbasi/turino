@@ -1,26 +1,17 @@
 import { useEffect, useState, useRef } from "react";
-import { useMutation } from "@tanstack/react-query";
+
+import { useCheckOtp } from "../../services/mutations";
+import { formatTime } from "../../utils/tourUtils";
 
 import OtpInputs from "./OtpInputs";
-import api from "../../services/axiosInstance";
-
 import styles from "./OtpModal.module.css";
 
-
-
-const checkOtp = async ({ mobile, code }) => {
-  const response = await api.post("/auth/check-otp", {
-    mobile,
-    code,
-  });
-
-  return response.data;
-};
-
-function OtpModal({ mobile, testCode, onBack, onClose, onLoginSuccess }) {
+function OtpModal({ mobile, onBack, onClose, onLoginSuccess }) {
   const [secondsLeft, setSecondsLeft] = useState(120);
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef([]);
+
+  const { mutate: verifyOtp, isPending, error } = useCheckOtp();
 
   useEffect(() => {
     if (secondsLeft <= 0) return;
@@ -32,32 +23,21 @@ function OtpModal({ mobile, testCode, onBack, onClose, onLoginSuccess }) {
     return () => clearInterval(timerId);
   }, [secondsLeft]);
 
-  const minutes = Math.floor(secondsLeft / 60);
-  const seconds = secondsLeft % 60;
-
-  const formattedTime = `${String(minutes).padStart(2, "0")}:${String(
-    seconds,
-  ).padStart(2, "0")}`;
-
-  const {
-    mutate: verifyOtp,
-    isPending,
-    error,
-  } = useMutation({
-    mutationFn: ({ mobile, code }) => checkOtp({ mobile, code }),
-    onSuccess: (data) => {
-      onLoginSuccess(data);
-    },
-  });
-
   const handleVerifyOtp = () => {
     const code = otp.join("");
 
-    if (code.length !== 6 || !otp.every((digit) => digit !== "")) {
+    if (code.length !== 6 || otp.some((digit) => digit === "")) {
       return;
     }
 
-    verifyOtp({ mobile, code });
+    verifyOtp(
+      { mobile, code },
+      {
+        onSuccess: (data) => {
+          onLoginSuccess(data);
+        },
+      },
+    );
   };
 
   return (
@@ -76,20 +56,25 @@ function OtpModal({ mobile, testCode, onBack, onClose, onLoginSuccess }) {
         </button>
 
         <h2>کد تأیید را وارد کنید.</h2>
+
         <p className={styles.description}>
           کد تأیید به شماره <span dir="ltr">{mobile}</span> ارسال شد.
         </p>
+
         <OtpInputs otp={otp} setOtp={setOtp} inputRefs={inputRefs} />
+
         {error && (
           <p className={styles.errorMessage} role="alert">
             {error.response?.data?.message ||
               "تأیید کد با مشکل مواجه شد. دوباره تلاش کنید."}
           </p>
         )}
+
         <p className={styles.timer}>
-          <span dir="ltr">{formattedTime}</span>
-          تا ارسال مجدد کد{" "}
+          <span dir="ltr">{formatTime(secondsLeft)}</span>
+          تا ارسال مجدد کد
         </p>
+
         <button
           type="button"
           className={styles.submitButton}

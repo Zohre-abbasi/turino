@@ -62,6 +62,15 @@ const formatPersianPrice = (price) => {
   return new Intl.NumberFormat("fa-IR").format(price);
 };
 
+const formatTime = (seconds) => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
+  return `${String(minutes).padStart(2, "0")}:${String(
+    remainingSeconds,
+  ).padStart(2, "0")}`;
+};
+
 export {
   getPersianCityName,
   getPersianVehicleName,
@@ -69,4 +78,5 @@ export {
   getTourDuration,
   getHotelStars,
   formatPersianPrice,
+  formatTime,
 };
