@@ -82,11 +82,11 @@ function CheckoutPage() {
   }, [isLoading, isAuthenticated, router]);
 
   useEffect(() => {
-    if (basketError?.response?.status === 404 || (basket && !basket.id)) {
+    if (basket === null || (basket && !basket.id)) {
       const timer = setTimeout(() => router.replace("/"), 2000);
       return () => clearTimeout(timer);
     }
-  }, [basket, basketError, router]);
+  }, [basket, router]);
 
   if (isLoading || isBasketLoading) {
     return <p>در حال بررسی سبد خرید...</p>;
