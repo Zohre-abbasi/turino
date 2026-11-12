@@ -1,34 +1,11 @@
-import { useEffect, useState } from "react";
-import { getMyTours } from "../../services/tourServices";
+import { useGetUserTours } from "../../services/queries";
 import ParchasedTour from "../modules/MyTours/ParchasedTour";
 import UserPanelTabs from "../modules/UserPanel/UserPanelTabs";
 
 import styles from "./MyToursPage.module.css";
 
 function MyToursPage() {
-  const [tours, setTours] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    async function fetchTours() {
-      try {
-        const data = await getMyTours();
-        setTours(data);
-      } catch (error) {
-        // setError("دریافت اطلاعات تورها با خطا مواجه شد.");
-        console.error("خطای دریافت تورهای من:", error);
-        console.error("پاسخ سرور:", error.response?.data);
-        console.error("کد وضعیت:", error.response?.status);
-
-        setError("دریافت اطلاعات تورها با خطا مواجه شد.");
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchTours();
-  }, []);
+  const { data: tours = [], isPending, isError} = useGetUserTours();
 
   return (
     <div className={styles.container}>
@@ -38,10 +15,12 @@ function MyToursPage() {
         </aside>
 
         <div className={styles.content}>
-          {loading ? (
+          {isPending ? (
             <p>در حال دریافت اطلاعات...</p>
-          ) : error ? (
-            <p className={styles.error}>{error}</p>
+          ) : isError ? (
+            <p className={styles.error}>
+              دریافت اطلاعات تورها با خطا مواجه شد.
+            </p>
           ) : (
             <ParchasedTour tours={tours} />
           )}
