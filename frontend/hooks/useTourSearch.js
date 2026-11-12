@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import useTours from "./useTours";
+import { useTours } from "../services/queries";
 import { formatApiDate, parseApiDate } from "../utils/dateUtils";
 
 function useTourSearch(initialTours = []) {
@@ -146,8 +146,6 @@ function useTourSearch(initialTours = []) {
     (tour) => tour.destination?.id === searchFilters.destinationId,
   )?.destination;
 
-  const hasActiveFilters = hasSearchFilters;
-
   const handleRemoveAllFilters = () => {
     setOrigin(null);
     setDestination(null);
@@ -185,7 +183,7 @@ function useTourSearch(initialTours = []) {
     destinations,
     appliedOrigin,
     appliedDestination,
-    hasActiveFilters,
+    hasActiveFilters: hasSearchFilters,
     handleSearch,
     handleRemoveFilter,
     handleRemoveAllFilters,
