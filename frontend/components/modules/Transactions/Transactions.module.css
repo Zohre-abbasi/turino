@@ -50,11 +50,30 @@
 .orderNumber {
   font-size: clamp(9px, 3vw, 14px);
   direction: ltr;
+  overflow-wrap: anywhere;
 }
 
 .type,
 .desktopOnly {
   display: none;
+}
+.emptyBasket {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.emptyBasket p {
+  padding: 25px 40px;
+  background-color: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  color: #555;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
 }
 
 @media (min-width: 576px) {

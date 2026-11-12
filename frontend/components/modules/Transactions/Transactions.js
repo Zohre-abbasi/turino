@@ -5,7 +5,11 @@ import { formatPersianPrice } from "../../../utils/tourUtils";
 
 function Transactions({ transactions }) {
   if (!transactions.length) {
-    return <p>هنوز تراکنشی ثبت نکرده‌اید.</p>;
+    return (
+      <div className={styles.emptyBasket}>
+        <p>هنوز تراکنشی ثبت نکرده‌اید.</p>
+      </div>
+    );
   }
 
   return (
@@ -29,10 +33,14 @@ function Transactions({ transactions }) {
             </span>
 
             <span className={styles.type}>
-              {transaction.type === "Purchase" ? "ثبت نام در تور گردشگری" : transaction.type}
+              {transaction.type === "Purchase"
+                ? "ثبت نام در تور گردشگری"
+                : transaction.type}
             </span>
 
-            <span className={styles.orderNumber}>۱۲۳۴۵</span>
+            <span className={styles.orderNumber} dir="ltr">
+              {transaction.id.slice(0, 8)}...
+            </span>
           </div>
         ))}
       </div>

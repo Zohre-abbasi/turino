@@ -185,7 +185,7 @@
   direction: ltr;
   font-size: clamp(11px, 4vw, 20px);
   color: #282828;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .price {
@@ -214,6 +214,24 @@
   min-width: 0;
   flex: 1;
   flex-wrap: wrap;
+}
+.emptyState {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.emptyState p {
+  padding: 25px 40px;
+  background-color: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  color: #555;
+  font-size: clamp(14px, 2vw, 18px);
+  font-weight: 600;
+  text-align: center;
 }
 
 @media (min-width: 576px) {

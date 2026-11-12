@@ -13,7 +13,11 @@ import {
 
 function ParchasedTour({ tours }) {
   if (!tours.length) {
-    return <p>هنوز توری ثبت نکرده‌اید.</p>;
+    return (
+      <div className={styles.emptyState}>
+        <p>هنوز توری ثبت‌نام نکرده‌اید.</p>
+      </div>
+    );
   }
 
   return (
@@ -82,7 +86,7 @@ function ParchasedTour({ tours }) {
           <div className={styles.cardFooter}>
             <div className={styles.tourNumber}>
               <span>شماره تور</span>
-              <span>۱۲۳۴۵</span>
+              <span dir="ltr">{tour.id.slice(0, 8)}...</span>
             </div>
             <div className={styles.paidPrice}>
               <span className={styles.price}>مبلغ پرداخت‌شده</span>
