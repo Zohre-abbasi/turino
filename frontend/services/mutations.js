@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { addTourToBasket } from "./basketService";
 import api from "./axiosInstance";
 
 const checkOtp = async ({ mobile, code }) => {
@@ -13,6 +14,13 @@ const checkOtp = async ({ mobile, code }) => {
 export const useCheckOtp = (options = {}) => {
   return useMutation({
     mutationFn: checkOtp,
+    ...options,
+  });
+};
+
+export const useAddTourToBasket = (options = {}) => {
+  return useMutation({
+    mutationFn: addTourToBasket,
     ...options,
   });
 };

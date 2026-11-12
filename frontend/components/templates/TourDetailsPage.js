@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useAddTourToBasket } from "../../services/mutations";
 import { useRouter } from "next/router";
 import { addTourToBasket } from "../../services/basketService";
 import toast from "react-hot-toast";
@@ -14,25 +14,43 @@ import {
   formatPersianPrice,
 } from "../../utils/tourUtils";
 
+const benefits = [
+  {
+    title: "تورلیدر از مبدأ",
+    icon: "/icons/user3.png",
+  },
+  {
+    title: "برنامه سفر",
+    icon: "/icons/map.png",
+  },
+  {
+    title: "تضمین کیفیت",
+    icon: "/icons/medal.png",
+  },
+];
+
 function TourDetailsPage({ tour }) {
-  
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  
+  const { mutateAsync, isPending } = useAddTourToBasket();
+
   if (!tour) return null;
   const handleReserve = async () => {
-    try {
-      setIsLoading(true);
+    const token = localStorage.getItem("accessToken");
 
-      const data = await addTourToBasket(tour.id);
+    if (!token) {
+      window.dispatchEvent(new Event("auth-expired"));
+      return;
+    }
+
+    try {
+      const data = await mutateAsync(tour.id);
       toast.success(data.message);
+
       setTimeout(() => {
         router.push("/checkout");
       }, 1000);
     } catch (error) {
       console.error("Error adding tour to basket:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -67,20 +85,6 @@ function TourDetailsPage({ tour }) {
       title: "بیمه",
       value: tour.insurance ? "دارد" : "ندارد",
       icon: "/icons/security.png",
-    },
-  ];
-  const benefits = [
-    {
-      title: "تورلیدر از مبدأ",
-      icon: "/icons/user3.png",
-    },
-    {
-      title: "برنامه سفر",
-      icon: "/icons/map.png",
-    },
-    {
-      title: "تضمین کیفیت",
-      icon: "/icons/medal.png",
     },
   ];
 
@@ -150,9 +154,9 @@ function TourDetailsPage({ tour }) {
                 type="button"
                 className={styles.bookingButton}
                 onClick={handleReserve}
-                disabled={isLoading}
+                disabled={isPending}
               >
-                {isLoading ? "در حال افزودن..." : "رزرو و خرید"}
+                {isPending ? "در حال افزودن..." : "رزرو و خرید"}
               </button>
               <div className={styles.price}>
                 <strong>{formatPersianPrice(tour.price)}</strong>
