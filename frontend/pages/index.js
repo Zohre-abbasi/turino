@@ -1,10 +1,9 @@
 import HomePage from "../components/templates/HomePage";
 import { getTours } from "../services/tourService";
-import styles from "../styles/Home.module.css";
 
 function Home({ initialTours, initialToursError }) {
   return (
-    <div className={styles.container}>
+    <div>
       <HomePage
         initialTours={initialTours}
         initialToursError={initialToursError}
