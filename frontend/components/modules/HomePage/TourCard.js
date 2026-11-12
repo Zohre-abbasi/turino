@@ -6,7 +6,7 @@ import {
   getTourDuration,
   getHotelStars,
   formatPersianPrice,
-} from "../../utils/tourUtils";
+} from "../../../utils/tourUtils";
 
 function TourCard({ tour }) {
   const { id, image, title, startDate, endDate, fleetVehicle, price, options } =

@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 
-import { useCheckOtp } from "../../services/mutations";
-import { formatTime } from "../../utils/tourUtils";
+import { useCheckOtp } from "../../../services/mutations";
+import { formatTime } from "../../../utils/tourUtils";
 
 import OtpInputs from "./OtpInputs";
 import styles from "./OtpModal.module.css";

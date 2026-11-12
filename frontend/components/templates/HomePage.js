@@ -3,12 +3,12 @@ import { useRouter } from "next/router";
 
 import useTourSearch from "../../hooks/useTourSearch";
 import useNetworkStatus from "../../hooks/useNetworkStatus";
-import Banner from "../modules/Banner";
-import TourSearch from "../modules/TourSearch";
-import TourList from "../modules/TourList";
-import ContactBanner from "../modules/ContactBanner";
-import WhyTurino from "../modules/WhyTurino";
-import TurinoAdvantages from "../modules/TurinoAdvantages";
+import Banner from "../modules/HomePage/Banner";
+import TourSearch from "../modules/HomePage/TourSearch";
+import TourList from "../modules/HomePage/TourList";
+import ContactBanner from "../modules/HomePage/ContactBanner";
+import WhyTurino from "../modules/HomePage/WhyTurino";
+import TurinoAdvantages from "../modules/HomePage/TurinoAdvantages";
 
 function HomePage({ initialTours, initialToursError }) {
   const searchProps = useTourSearch(initialTours);

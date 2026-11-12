@@ -69,7 +69,7 @@ function WhyTurino() {
             disabled={activeIndex === images.length - 1}
             aria-label="تصویر بعدی"
           >
-            <img src="/icons/flashR.png" />
+            <img src="/icons/flashR.png" alt="" />
           </button>
 
           <span>
@@ -82,7 +82,7 @@ function WhyTurino() {
             disabled={activeIndex === 0}
             aria-label="تصویر قبلی"
           >
-            <img src="/icons/flashL.png" />
+            <img src="/icons/flashL.png" alt="" />
           </button>
         </div>
       </div>

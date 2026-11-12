@@ -13,7 +13,6 @@
   display: block;
   width: 100%;
   height: auto;
-  object-fit: contain;
 }
 
 .content {
@@ -27,7 +26,6 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 100%;
-  letter-spacing: 0%;
 }
 
 .details {
@@ -40,7 +38,6 @@
   font-weight: 400;
   font-size: 15px;
   line-height: 100%;
-  letter-spacing: 0%;
 }
 
 .details span:not(:last-child)::after {
@@ -76,7 +73,6 @@
   padding: 12px;
   font-weight: 400;
   line-height: 100%;
-  letter-spacing: 0%;
   text-decoration: none;
 }
 
@@ -86,12 +82,11 @@
 
 .price {
   margin: 0;
-  color: #009ECA;
+  color: #009eca;
   font-weight: 600;
-  white-space: wrap;
+  white-space: normal;
   font-size: 19px;
   line-height: 100%;
-  letter-spacing: 0%;
   text-align: right;
 }
 
@@ -101,13 +96,8 @@
   font-weight: 400;
 }
 
-/* Desktop */
-
 @media (min-width: 1024px) {
-  .content {
-    padding: 14px;
-  }
-
+  
   .title {
     font-size: 19px;
   }

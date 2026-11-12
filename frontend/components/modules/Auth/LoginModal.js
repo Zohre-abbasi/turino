@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import api from "../../services/axiosInstance";
+import api from "../../../services/axiosInstance";
 
 const loginSchema = yup.object({
   mobile: yup

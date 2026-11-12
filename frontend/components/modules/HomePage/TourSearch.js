@@ -2,17 +2,16 @@ import { useState } from "react";
 
 import dynamic from "next/dynamic";
 import { CalendarProvider } from "zaman";
-
-import { formatPersianDate, parseApiDate } from "../../utils/dateUtils";
+import { formatPersianDate, parseApiDate } from "../../../utils/dateUtils";
+import { getPersianCityName } from "../../../utils/tourUtils";
 
 import styles from "./TourSearch.module.css";
-import { getPersianCityName } from "../../utils/tourUtils";
 
 const Calendar = dynamic(() => import("zaman").then((mod) => mod.Calendar), {
   ssr: false,
 });
 
-function TourSearch({ ...searchProps }) {
+function TourSearch(searchProps) {
   const {
     origin,
     setOrigin,
@@ -33,7 +32,6 @@ function TourSearch({ ...searchProps }) {
     handleRemoveAllFilters,
   } = searchProps;
 
-  // وضعیت‌های مربوط به نمایش رابط کاربری
   const [showOrigins, setShowOrigins] = useState(false);
   const [showDestinations, setShowDestinations] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -43,14 +41,11 @@ function TourSearch({ ...searchProps }) {
       <h2>
         <span>تورینو</span> برگزار کننده بهترین تور های داخلی و خارجی
       </h2>
-
       <form className={styles.form} onSubmit={handleSearch}>
         <div className={styles.routeFields}>
-          {/* مبدأ */}
           <div className={styles.originWrapper}>
             <div className={styles.field}>
               <img src="/icons/location.png" alt="مبدا" />
-
               <input
                 type="text"
                 placeholder="مبدا"
@@ -60,7 +55,6 @@ function TourSearch({ ...searchProps }) {
                 readOnly
               />
             </div>
-
             {showOrigins && (
               <div className={styles.originDropdown}>
                 <div className={styles.dropdownTitle}>پرتردد</div>
@@ -80,8 +74,6 @@ function TourSearch({ ...searchProps }) {
               </div>
             )}
           </div>
-
-          {/* مقصد */}
           <div className={styles.destinationWrapper}>
             <div className={styles.field}>
               <img src="/icons/global.png" alt="مقصد" />
@@ -95,7 +87,6 @@ function TourSearch({ ...searchProps }) {
                 readOnly
               />
             </div>
-
             {showDestinations && (
               <div className={styles.destinationDropdown}>
                 <div className={styles.dropdownTitle}>پرتردد</div>
@@ -205,7 +196,7 @@ function TourSearch({ ...searchProps }) {
           <button
             type="button"
             className={styles.clearFilters}
-            onClick={() => handleRemoveAllFilters()}
+            onClick={ handleRemoveAllFilters}
           >
             حذف همه فیلترها
           </button>

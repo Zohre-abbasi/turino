@@ -15,8 +15,8 @@
 }
 
 .icon {
-  width: clamp(80px, 7vw, 50px);
-  height: clamp(70px, 7vw, 50px);
+  width: clamp(50px, 7vw, 80px);
+  height: clamp(50px, 7vw, 70px);
   flex-shrink: 0;
   object-fit: contain;
 }
@@ -44,13 +44,11 @@
   font-weight: 400;
   line-height: 2;
   color: #282828;
-
 }
 
 @media (min-width: 787px) {
   .container {
     flex-direction: row;
-    align-items: stretch;
     gap: 25px;
   }
 
@@ -60,12 +58,8 @@
     gap: 15px;
   }
 
-
   .title {
     font-size: 20px;
   }
 
-  .description {
-    font-size: 14px;
-  }
 }

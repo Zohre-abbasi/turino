@@ -26,7 +26,7 @@ function TurinoAdvantages() {
     <section className={styles.container}>
       {advantages.map((item) => (
         <div className={styles.card} key={item.id}>
-          <img className={styles.icon} src={item.image} alt="icon" />
+          <img className={styles.icon} src={item.image} alt="" />
 
           <div className={styles.content}>
             <h3 className={styles.title}>{item.title}</h3>

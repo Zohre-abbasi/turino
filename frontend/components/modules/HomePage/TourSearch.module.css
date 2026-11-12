@@ -12,7 +12,6 @@
   font-size: 16px;
   color: #595959;
   line-height: 100%;
-  letter-spacing: 0%;
 }
 
 .tourSearch span {
@@ -73,8 +72,6 @@
   color: #00000080;
   opacity: 1;
 }
-
-/* Dropdowns */
 
 .originDropdown,
 .destinationDropdown {
@@ -138,8 +135,6 @@
   background-color: #f7f7f7;
 }
 
-/* Date */
-
 .fieldDate {
   display: flex;
   align-items: center;
@@ -183,9 +178,7 @@
   cursor: pointer;
   pointer-events: none;
 }
-.dateInputs input:placeholder-shown {
-  width: 40px;
-}
+
 .dateInputs input::placeholder {
   color: #00000080;
   opacity: 1;
@@ -211,16 +204,12 @@
   border: none;
   padding: 8px;
   margin-top: 20px;
-  gap: 8px;
   font-weight: 400;
   font-size: 20px;
   color: #ffffff;
   line-height: 100%;
-  letter-spacing: 0%;
   text-align: center;
 }
-
-/* Active Filters - Mobile */
 
 .activeFilters {
   display: flex;
@@ -251,7 +240,6 @@
   align-items: center;
   gap: 8px;
   padding: 7px 10px;
-
   border: 1px solid #dcdcdc;
   border-radius: 8px;
   background: #fff;
@@ -273,8 +261,6 @@
   font-size: 12px;
   cursor: pointer;
 }
-
-/* Desktop */
 
 @media (min-width: 768px) {
   .tourSearch {
@@ -398,8 +384,6 @@
     justify-content: flex-start;
   }
 }
-
-/* Existing responsive range */
 
 @media (min-width: 391px) and (max-width: 767px) {
   .tourSearch h2 {

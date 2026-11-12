@@ -28,11 +28,7 @@ function TourList({ tours = [] }) {
             >
               {showAll ? "مشاهده کمتر" : "مشاهده بیشتر"}
               <span>
-                {showAll ? (
-                  <img src="/icons/arrow.png" />
-                ) : (
-                  <img src="/icons/arrow.png" />
-                )}
+                <img src="/icons/arrow.png" alt="" />
               </span>
             </button>
           )}
