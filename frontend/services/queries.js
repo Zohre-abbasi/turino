@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getTours } from "./tourService";
+import { getBasket } from "./basketService";
 import api from "./axiosInstance";
 
 export const useGetUserTours = () => {
@@ -26,6 +27,14 @@ export const useTours = (filters = {}, options = {}) => {
   return useQuery({
     queryKey: ["tours", filters],
     queryFn: () => getTours(filters),
+    ...options,
+  });
+};
+
+export const useGetBasket = (options = {}) => {
+  return useQuery({
+    queryKey: ["basket"],
+    queryFn: getBasket,
     ...options,
   });
 };

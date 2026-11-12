@@ -1,21 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "../../context/AuthContext";
-import { getBasket } from "../../services/basketService";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { passengerSchema } from "../../validations/valid";
 import PassengerForm from "../modules/Checkout/PassengerForm";
 import TourSummary from "../modules/Checkout/TourSummary";
-import { createOrder } from "../../services/orderService";
+import { useGetBasket } from "../../services/queries";
+import { useCreateOrder } from "../../services/mutations";
 
 import styles from "./CheckoutPage.module.css";
 
 function CheckoutPage() {
   const router = useRouter();
   const { user, isAuthenticated, isLoading } = useAuth();
-  const [basket, setBasket] = useState(null);
-  const [loading, setLoading] = useState(true);
+
+  const {
+    data: basket,
+    isLoading: isBasketLoading,
+    error: basketError,
+  } = useGetBasket({
+    enabled: !isLoading && isAuthenticated,
+  });
+
+  const { mutateAsync: createOrderMutation } = useCreateOrder();
 
   const {
     register,
@@ -36,7 +44,7 @@ function CheckoutPage() {
 
   const onSubmit = async (data) => {
     try {
-      await createOrder(data);
+      await createOrderMutation(data);
       router.push("/payment?status=success");
     } catch (error) {
       console.error(error);
@@ -67,36 +75,20 @@ function CheckoutPage() {
   useEffect(() => {
     if (isLoading) return;
 
-    async function fetchBasket() {
-      if (!isAuthenticated) {
-        setLoading(false);
-        setTimeout(() => router.replace("/"), 2000);
-        return;
-      }
-
-      try {
-        const data = await getBasket();
-
-        if (!data.id) {
-          setTimeout(() => router.replace("/"), 2000);
-        } else {
-          setBasket(data);
-        }
-      } catch (error) {
-        if (error.response?.status === 404) {
-          setTimeout(() => router.replace("/"), 2000);
-        } else {
-          console.log(error);
-        }
-      }
-
-      setLoading(false);
+    if (!isAuthenticated) {
+      const timer = setTimeout(() => router.replace("/"), 2000);
+      return () => clearTimeout(timer);
     }
-
-    fetchBasket();
   }, [isLoading, isAuthenticated, router]);
 
-  if (isLoading || loading) {
+  useEffect(() => {
+    if (basketError?.response?.status === 404 || (basket && !basket.id)) {
+      const timer = setTimeout(() => router.replace("/"), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [basket, basketError, router]);
+
+  if (isLoading || isBasketLoading) {
     return <p>در حال بررسی سبد خرید...</p>;
   }
 
@@ -114,12 +106,10 @@ function CheckoutPage() {
         <div className={styles.checkoutContent}>
           <div className={styles.passengerSection}>
             <PassengerForm
-              user={user}
               register={register}
               errors={errors}
               setValue={setValue}
               watch={watch}
-              reset={reset}
             />
           </div>
 

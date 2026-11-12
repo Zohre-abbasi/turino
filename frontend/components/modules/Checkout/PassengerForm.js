@@ -14,13 +14,13 @@ const Calendar = dynamic(() => import("zaman").then((mod) => mod.Calendar), {
   ssr: false,
 });
 
-function PassengerForm({ user, register, errors, setValue, watch, reset }) {
+function PassengerForm({ register, errors, setValue, watch}) {
   const [showCalendar, setShowCalendar] = useState(false);
 
   return (
     <div className={styles.container}>
       <div className={styles.title}>
-        <img src="/icons/profile5.png" />
+        <img src="/icons/profile5.png" alt="" />
         <h2>مشخصات مسافر</h2>
       </div>
 
