@@ -6,6 +6,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { bankInfoSchema } from "../../../validations/valid";
 import styles from "./BankInfo.module.css";
 
+const bankFields = [
+  {
+    name: "shaba_code",
+    placeholder: "شماره شبا",
+  },
+  {
+    name: "accountIdentifier",
+    placeholder: "شماره حساب",
+  },
+  {
+    name: "debitCard_code",
+    placeholder: "شماره کارت",
+  },
+];
+
 function BankInfo({ user }) {
   const { updateUser } = useAuth();
 
@@ -106,21 +121,6 @@ function BankInfo({ user }) {
     setApiSuccess("");
     setIsBankEditing(false);
   };
-
-  const bankFields = [
-    {
-      name: "shaba_code",
-      placeholder: "شماره شبا",
-    },
-    {
-      name: "accountIdentifier",
-      placeholder: "شماره حساب",
-    },
-    {
-      name: "debitCard_code",
-      placeholder: "شماره کارت",
-    },
-  ];
 
   return (
     <section className={styles.card}>

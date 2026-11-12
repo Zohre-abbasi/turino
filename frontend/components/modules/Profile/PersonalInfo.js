@@ -148,6 +148,10 @@ function PersonalInfo({ user }) {
             onClick={() => {
               setPersonalInfo({ ...savedPersonalInfo });
 
+              setFullNameInput(
+                `${savedPersonalInfo.firstName} ${savedPersonalInfo.lastName}`.trim(),
+              );
+
               reset(savedPersonalInfo);
               clearErrors();
               setIsPersonalEditing(true);
@@ -207,8 +211,6 @@ function PersonalInfo({ user }) {
               </p>
             )}
           </div>
-
-          {/* کد ملی */}
           <div>
             <input
               type="text"
@@ -231,8 +233,6 @@ function PersonalInfo({ user }) {
               <p className={styles.error}>{errors.nationalCode.message}</p>
             )}
           </div>
-
-          {/* جنسیت */}
           <div>
             <select
               value={personalInfo.gender}
@@ -259,8 +259,6 @@ function PersonalInfo({ user }) {
               <p className={styles.error}>{errors.gender.message}</p>
             )}
           </div>
-
-          {/* تاریخ تولد */}
           <div className={styles.birthDateWrapper}>
             <input type="hidden" {...register("birthDate")} />
 
@@ -322,6 +320,11 @@ function PersonalInfo({ user }) {
               type="button"
               onClick={() => {
                 setPersonalInfo({ ...savedPersonalInfo });
+
+                setFullNameInput(
+                  `${savedPersonalInfo.firstName} ${savedPersonalInfo.lastName}`.trim(),
+                );
+
                 clearErrors();
                 setApiError("");
                 setApiSuccess("");

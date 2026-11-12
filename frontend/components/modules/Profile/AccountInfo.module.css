@@ -89,45 +89,6 @@
   direction: rtl;
   outline: none;
 }
-
-/* .accountItem input + .actionButton {
-  flex: 1 0 auto;
-  height: 40px;
-  padding: 0 18px;
-  border: 1px solid #28a745;
-  border-radius: 8px;
-  background: #28a745;
-  color: #fff;
-  font-size: 16px;
-} */
-
-/* .accountItem form {
-  display: grid;
-  grid-template-columns: minmax(0, 65%) auto;
-  align-items: center;
-  gap: 8px 14px;
-  width: 100%;
-  min-width: 0;
-}
-
-.accountItem form input {
-  width: 100%;
-}
-
-.accountItem form .actionButton {
-  height: 40px;
-  padding: 0 18px;
-  border: 1px solid #28a745;
-  border-radius: 8px;
-  background: #28a745;
-  color: #fff;
-  font-size: 16px;
-}
-
-.accountItem form .error {
-  grid-column: 1 / -1;
-  margin: 0;
-} */
 .accountItem form {
   display: grid;
   grid-template-columns: minmax(0, 65%) auto;
@@ -217,10 +178,6 @@
     margin-right: auto;
     flex-shrink: 0;
   }
-
-  /* .accountItem input + .actionButton {
-    margin-right: 0;
-  } */
 
   .accountItem form .actionButton {
     margin-right: 0;

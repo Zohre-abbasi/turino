@@ -173,7 +173,6 @@
   box-sizing: border-box;
 }
 
-/* پیام‌های خطا و موفقیت */
 .error,
 .success {
   padding: 8px 12px;
@@ -193,7 +192,6 @@
   background-color: #eaf7ef;
 }
 
-/* چیدمان فیلدها و پیام خطای زیر آن‌ها */
 .personalForm > div:not(.formActions) {
   display: flex;
   flex-direction: column;
@@ -202,7 +200,6 @@
   min-width: 0;
 }
 
-/* خطای مربوط به سرور در پایین فرم */
 .personalForm > .error {
   grid-column: 1 / -1;
 }
