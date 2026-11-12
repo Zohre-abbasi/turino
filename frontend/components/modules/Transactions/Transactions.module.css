@@ -1,0 +1,111 @@
+.transactionsContainer {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #00000040;
+  border-radius: 10px;
+  background-color: #fff;
+  direction: rtl;
+}
+
+.tableHeader,
+.transactionRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.tableHeader {
+  padding: 14px 6px;
+  background: #dbdbdb;
+  color: #282828cc;
+  font-size: clamp(9px, 3vw, 14px);
+  font-weight: 400;
+}
+
+.transactionRow {
+  padding: 16px 6px;
+  color: #282828;
+  font-size: clamp(8px, 3vw, 13px);
+}
+
+.transactionRow span,
+.tableHeader span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.date {
+  white-space: nowrap;
+  font-size: clamp(8px, 2.8vw, 13px);
+}
+
+.amount {
+  font-size: clamp(9px, 3vw, 14px);
+}
+
+.orderNumber {
+  font-size: clamp(9px, 3vw, 14px);
+  direction: ltr;
+}
+
+.type,
+.desktopOnly {
+  display: none;
+}
+
+@media (min-width: 576px) {
+  .tableHeader,
+  .transactionRow {
+    gap: 8px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .tableHeader {
+    font-size: clamp(12px, 2vw, 15px);
+  }
+
+  .transactionRow {
+    font-size: clamp(11px, 2vw, 14px);
+  }
+}
+
+@media (min-width: 768px) {
+  .tableHeader,
+  .transactionRow {
+    grid-template-columns:
+      minmax(0, 1.3fr)
+      minmax(0, 1fr)
+      minmax(0, 1fr)
+      minmax(0, 1fr);
+    gap: 10px;
+    padding: 18px 12px;
+  }
+
+  .tableHeader {
+    font-size: clamp(12px, 1.2vw, 16px);
+  }
+
+  .transactionRow {
+    font-size: clamp(11px, 1.1vw, 15px);
+  }
+
+  .date {
+    font-size: clamp(11px, 1.1vw, 15px);
+  }
+
+  .amount,
+  .orderNumber {
+    font-size: clamp(12px, 1.2vw, 16px);
+  }
+
+  .type,
+  .desktopOnly {
+    display: block;
+    font-size: clamp(11px, 1.1vw, 15px);
+  }
+}

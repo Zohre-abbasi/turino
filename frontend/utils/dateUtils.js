@@ -76,11 +76,32 @@ const getTourStatus = (startDate, endDate) => {
 
   return "در حال برگزاری";
 };
+const formatPersianDateTime = (date) => {
+  if (!date) return "";
+
+  const parsedDate = new Date(date);
+
+  const time = new Intl.DateTimeFormat("fa-IR", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).format(parsedDate);
+
+  const persianDate = new Intl.DateTimeFormat("fa-IR", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    calendar: "persian",
+  }).format(parsedDate);
+
+  return `${time} - ${persianDate}`;
+};
 
 export {
   formatPersianDate,
   formatPersianDateWithWeekday,
   formatApiDate,
   parseApiDate,
-  getTourStatus
+  getTourStatus,
+  formatPersianDateTime
 };

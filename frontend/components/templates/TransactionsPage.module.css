@@ -1,0 +1,47 @@
+.container {
+  width: 100%;
+  min-width: 0;
+  margin: 0 auto;
+  padding: 20px 31px;
+  direction: rtl;
+}
+
+.transactionsLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+
+.sidebar {
+  width: 100%;
+  min-width: 0;
+}
+
+.content {
+  width: 100%;
+  min-width: 0;
+}
+
+.error {
+  color: #dc3545;
+  font-size: clamp(12px, 3vw, 16px);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .transactionsLayout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .sidebar {
+    flex: 1;
+  }
+
+  .content {
+    flex: 3;
+  }
+}
