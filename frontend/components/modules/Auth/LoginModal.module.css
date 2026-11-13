@@ -9,9 +9,6 @@
   background-color: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(5px);
-
-  /* width: 358px;
-  height: 362px; */
 }
 
 .modal {
@@ -41,7 +38,6 @@
 }
 
 .modal h2 {
-  /* margin-bottom: 12px; */
   font-weight: 600;
   font-size: 22px;
   margin-top: 59px;
@@ -52,10 +48,8 @@
 }
 
 .modal > p {
-  /* margin-bottom: 20px; */
   margin-top: 70px;
   font-weight: 300;
-  font-style: Light;
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 0%;
@@ -64,8 +58,6 @@
 }
 
 .modal input {
-  /* display: block; */
-
   align-items: center;
   margin-top: 12px;
   padding: 0 12px;
@@ -76,12 +68,8 @@
   width: 100%;
   max-width: 278px;
   height: 54px;
-  border-radius: 6px;
   border-width: 1px;
-  /* padding: 8px; */
   gap: 8px;
-  /* margin-right: auto;
-  margin-left: auto; */
 }
 
 .submitButton {
@@ -97,7 +85,6 @@
   transition: background-color 0.2s ease;
   background: #28a745;
   border-radius: 6px;
-  border-width: 1px;
   padding: 8px;
   gap: 8px;
 }
@@ -106,22 +93,13 @@
   background-color: #218838;
 }
 .errorMessage {
-  /* margin: 3px 0 0;
-  color: #dc2626;
-  font-size: 12px;
-  text-align: center;
-  direction: rtl; */
-
   margin: 2px 0;
   width: 100%;
-  /* max-width: 278px; */
-  box-sizing: border-box;
   color: #dc2626;
   font-size: 12px;
   line-height: 1.8;
   text-align: center;
   direction: rtl;
-  /* overflow-wrap: anywhere; */
 }
 .serverMessage {
   margin: 8px auto 0;

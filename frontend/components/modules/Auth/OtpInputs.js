@@ -42,15 +42,12 @@ function OtpInputs({ otp, setOtp, inputRefs }) {
 
             if (!pastedDigits) return;
 
-            setOtp((previousOtp) => {
-              const updatedOtp = [...previousOtp];
+            const updatedOtp = Array.from(
+              { length: 6 },
+              (_, digitIndex) => pastedDigits[digitIndex] || "",
+            );
 
-              pastedDigits.split("").forEach((digit, digitIndex) => {
-                updatedOtp[digitIndex] = digit;
-              });
-
-              return updatedOtp;
-            });
+            setOtp(updatedOtp);
 
             const nextIndex = Math.min(pastedDigits.length, 5);
             inputRefs.current[nextIndex]?.focus();

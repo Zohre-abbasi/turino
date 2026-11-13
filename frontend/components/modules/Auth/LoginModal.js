@@ -3,16 +3,8 @@ import styles from "./LoginModal.module.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { loginSchema } from "../../../validations/valid";
 import api from "../../../services/axiosInstance";
-
-const loginSchema = yup.object({
-  mobile: yup
-    .string()
-    .trim()
-    .required("وارد کردن شماره موبایل الزامی است.")
-    .matches(/^09\d{9}$/, "شماره موبایل معتبر وارد کنید."),
-});
 
 function LoginModal({ onClose, onOtpSent }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,11 +13,9 @@ function LoginModal({ onClose, onOtpSent }) {
   const {
     register,
     handleSubmit,
-    clearErrors,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(loginSchema),
-    reValidateMode: "onSubmit",
     defaultValues: {
       mobile: "",
     },
@@ -72,13 +62,7 @@ function LoginModal({ onClose, onOtpSent }) {
             type="tel"
             placeholder="۰۹۱۲***۴۲۵۳"
             dir="ltr"
-            {...register("mobile", {
-              onChange: () => {
-                clearErrors("mobile");
-              },
-            })}
-            aria-invalid={Boolean(errors.mobile)}
-            aria-describedby={errors.mobile ? "mobile-error" : undefined}
+            {...register("mobile")}
           />
           {errors.mobile && (
             <p id="mobile-error" className={styles.errorMessage}>

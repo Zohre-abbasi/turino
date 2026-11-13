@@ -73,3 +73,12 @@ export const passengerSchema = yup.object({
 
   birthDate: yup.string().required("انتخاب تاریخ تولد الزامی است."),
 });
+
+// اعتبارسنجی شماره موبایل
+export const loginSchema = yup.object({
+  mobile: yup
+    .string()
+    .trim()
+    .required("وارد کردن شماره موبایل الزامی است.")
+    .matches(/^09\d{9}$/, "شماره موبایل معتبر وارد کنید."),
+});

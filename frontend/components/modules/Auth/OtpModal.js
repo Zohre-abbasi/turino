@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useCheckOtp } from "../../../services/mutations";
 import { formatTime } from "../../../utils/tourUtils";
@@ -9,33 +9,30 @@ import styles from "./OtpModal.module.css";
 function OtpModal({ mobile, onBack, onClose, onLoginSuccess }) {
   const [secondsLeft, setSecondsLeft] = useState(120);
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+
   const inputRefs = useRef([]);
 
   const { mutate: verifyOtp, isPending, error } = useCheckOtp();
 
   useEffect(() => {
-    if (secondsLeft <= 0) return;
-
     const timerId = setInterval(() => {
-      setSecondsLeft((previousSeconds) => previousSeconds - 1);
+      setSecondsLeft((previousSeconds) =>
+        previousSeconds > 0 ? previousSeconds - 1 : 0,
+      );
     }, 1000);
 
     return () => clearInterval(timerId);
-  }, [secondsLeft]);
+  }, []);
 
   const handleVerifyOtp = () => {
     const code = otp.join("");
 
-    if (code.length !== 6 || otp.some((digit) => digit === "")) {
-      return;
-    }
+    if (code.length !== 6) return;
 
     verifyOtp(
       { mobile, code },
       {
-        onSuccess: (data) => {
-          onLoginSuccess(data);
-        },
+        onSuccess: onLoginSuccess,
       },
     );
   };
@@ -52,7 +49,7 @@ function OtpModal({ mobile, onBack, onClose, onLoginSuccess }) {
           onClick={onBack}
           aria-label="بازگشت"
         >
-          <img src="/icons/arrow-left.png" alt="back" />
+          <img src="/icons/arrow-left.png" alt="" />
         </button>
 
         <h2>کد تأیید را وارد کنید.</h2>

@@ -39,6 +39,16 @@ function Layout({ children }) {
     setIsLoginOpen(false);
     setIsOtpOpen(true);
   };
+  const handleOtpClose = () => {
+    setIsOtpOpen(false);
+    setTestCode("");
+  };
+
+  const handleOtpBack = () => {
+    setIsOtpOpen(false);
+    setTestCode("");
+    setIsLoginOpen(true);
+  };
 
   const handleLoginSuccess = async (data) => {
     const success = login(data);
@@ -72,7 +82,7 @@ function Layout({ children }) {
   };
   return (
     <div className={styles.page}>
-      {testCode && (
+      {isOtpOpen && testCode && (
         <p className={styles.testCode}>
           کد آزمایشی: <span dir="ltr">{testCode}</span>
         </p>
@@ -103,11 +113,8 @@ function Layout({ children }) {
       {isOtpOpen && (
         <OtpModal
           mobile={mobile}
-          onBack={() => {
-            setIsOtpOpen(false);
-            setIsLoginOpen(true);
-          }}
-          onClose={() => setIsOtpOpen(false)}
+          onBack={handleOtpBack}
+          onClose={handleOtpClose}
           onLoginSuccess={handleLoginSuccess}
         />
       )}
